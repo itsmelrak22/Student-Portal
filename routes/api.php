@@ -7,6 +7,9 @@ use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\CollegeController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ScheduleController;
 use App\Models\User;
 
 /*
@@ -46,4 +49,22 @@ Route::prefix('subject')->group( function (){
     Route::post('/insert', [SubjectController::class, 'insert']);
     Route::post('/update', [SubjectController::class, 'update']);
     Route::post('/delete', [SubjectController::class, 'delete']);
+});
+
+Route::prefix('college')->group( function (){
+    Route::post('/insert', [CollegeController::class, 'insert']);
+    Route::post('/update', [CollegeController::class, 'update']);
+    Route::post('/delete', [CollegeController::class, 'delete']);
+});
+
+Route::prefix('department')->group( function (){
+    Route::post('/insert', [DepartmentController::class, 'insert']);
+    Route::post('/update', [DepartmentController::class, 'update']);
+    Route::post('/delete', [DepartmentController::class, 'delete']);
+});
+
+Route::prefix('schedule')->group( function (){
+    Route::post('/insert', [ScheduleController::class, 'insert']);
+    Route::post('/update', [ScheduleController::class, 'update']);
+    Route::post('/delete', [ScheduleController::class, 'delete']);
 });

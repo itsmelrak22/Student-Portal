@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Professor;
+use App\Models\Department;
 use Illuminate\Support\Facades\DB;
 
 class ProfessorController extends Controller
 {
     public function index(){
-        return Professor::all();
+        $professor = Professor::select(
+            'professors.*',
+            'departments.name as dept_name'
+        )
+        ->leftJoin('departments', 'departments.id', 'professors.department_id')
+        ->get();
+
+        return $professor;
     }
 
     public function insert(Request $request){
@@ -20,6 +28,10 @@ class ProfessorController extends Controller
 
             $professor = new Professor;
             $professor->name = $request->name;
+            $professor->prof_code = $request->prof_code;
+            $professor->department_id = $request->department;
+            $professor->email = $request->email;
+            $professor->password = $request->password;
             $professor->save();
 
             DB::commit();
@@ -38,6 +50,10 @@ class ProfessorController extends Controller
 
             $professor = Professor::find($request->id);
             $professor->name = $request->name;
+            $professor->prof_code = $request->prof_code;
+            $professor->department_id = $request->department;
+            $professor->email = $request->email;
+            $professor->password = $request->password;
             $professor->save();
 
             DB::commit();

@@ -7,6 +7,9 @@ use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\CollegeController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ScheduleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +38,9 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/getProfessorData', [ProfessorController::class, 'index']);
     Route::get('/getStudentData', [StudentController::class, 'index']);
     Route::get('/getSubjectData', [SubjectController::class, 'index']);
+    Route::get('/getCollegeData', [CollegeController::class, 'index']);
+    Route::get('/getDepartmentData', [DepartmentController::class, 'index']);
+    Route::get('/getScheduleData', [ScheduleController::class, 'index']);
     
     Route::get('/{any?}', [SpaController::class, 'index'])->where('any', '.*');
 });

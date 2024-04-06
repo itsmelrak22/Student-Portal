@@ -12,5 +12,17 @@
     **Email**
     **Password**
 
-## Contributing
+## 
 
+
+- subjects: This table stores the subjects.
+- projects: This table stores the projects and the professor who is in charge of each project.
+- student_subject: This is a pivot table that stores the many-to-many relationship between students and subjects.
+- student_project: This is a pivot table that stores the many-to-many relationship between students and projects.
+
+
+MODULES : 
+ - grades
+ - schedules
+ - checklists
+ - school updates

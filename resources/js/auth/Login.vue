@@ -12,7 +12,7 @@
                 ></v-progress-linear>
               </template>
               <v-card-title class="justify-left">
-                  LARAVEL SPA BREEZE
+                  STUDENT PORTAL
               </v-card-title>
               <v-divider></v-divider>
               <v-card-text>

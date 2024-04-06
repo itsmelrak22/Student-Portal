@@ -70,6 +70,9 @@ import {mapState} from 'vuex';
          drawer: null,
          items:[
             {text:'Registrar', icon:'mdi-home', to:'registrar'},
+            {text:'College', icon:'mdi-home', to:'college'},
+            {text:'Schedule', icon:'mdi-home', to:'schedule'},
+            {text:'Department', icon:'mdi-home', to:'department'},
             {text:'Professor', icon:'mdi-hand-wave', to:'professor'},
             {text: 'Students', icon: 'mdi-account', to : 'students'},
             {text: 'Subjects', icon: 'mdi-account', to : 'subjects'},

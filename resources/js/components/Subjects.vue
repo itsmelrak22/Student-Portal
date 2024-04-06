@@ -4,7 +4,8 @@
         <v-simple-table>
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Department</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>
@@ -12,6 +13,7 @@
             <tbody>
                 <tr v-for="(item, index) in subjectData" :key="index">
                     <td>{{item.name}}</td>
+                    <td>{{item.dept_name}}</td>
                     <td>{{ item.created_at }}</td>
                     <td>
                         <v-btn @click="Edit(item)" icon dark small color="success"><v-icon>mdi-pencil</v-icon></v-btn>
@@ -29,7 +31,17 @@
                         <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
+                        <v-text-field dense name="subject_code" label="Subject Code" outlined></v-text-field>
                         <v-text-field dense name="name" label="name" outlined></v-text-field>
+                        <v-autocomplete 
+                            dense
+                            name="dept_id" 
+                            label="Department" 
+                            outlined
+                            :items="departmentData"
+                            item-text="name"
+                            item-value="id"
+                        ></v-autocomplete>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn @click="saveData" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
@@ -46,7 +58,18 @@
                         <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field v-model="tempName" name="name" label="name" outlined></v-text-field>
+                        <v-text-field v-model="tempCode" name="subject_code" label="Subject Code" outlined></v-text-field>
+                        <v-text-field v-model="tempName" name="name" label="Name" outlined></v-text-field>
+                        <v-autocomplete
+                            v-model="tempDepartment" 
+                            dense
+                            name="dept_id" 
+                            label="Department" 
+                            outlined
+                            :items="departmentData"
+                            item-text="name"
+                            item-value="id"
+                        ></v-autocomplete>
                         <input type="hidden" name="id" :value="editData.id">
                     </v-card-text>
                     <v-card-actions>
@@ -82,6 +105,8 @@ export default {
             editDialog: false,
             deleteDialog: false,
             tempName: null,
+            tempCode: null,
+            tempDepartment: null,
             editData: [],
             deleteData:[],
         }
@@ -89,7 +114,8 @@ export default {
 
     methods: {
         ...mapActions([
-            'getSubjectData'
+            'getSubjectData',
+            'getDepartmentData'
         ]),
 
         dataDelete(){
@@ -120,9 +146,11 @@ export default {
         },
 
         Edit(data){
-            // console.log(data)
+            console.log(data)
             this.editData = data
             this.tempName = data.name
+            this.tempCode = data.subject_code
+            this.tempDepartment = data.department_id
             this.editDialog = true
         },
 
@@ -155,11 +183,13 @@ export default {
     computed: {
         ...mapState([
             'subjectData',
+            'departmentData'
         ]),
       },
 
       mounted() {
         this.getSubjectData()
+        this.getDepartmentData()
       },
 }
 </script>

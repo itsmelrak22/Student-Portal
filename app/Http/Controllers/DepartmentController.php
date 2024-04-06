@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Subject;
 use App\Models\Department;
+use App\Models\College;
 use Illuminate\Support\Facades\DB;
 
-class SubjectController extends Controller
+class DepartmentController extends Controller
 {
     public function index(){
-        $subject = Subject::select(
-            'subjects.*',
-            'departments.name as dept_name'
-        )
-        ->leftJoin('departments','departments.id','subjects.department_id')
-        ->get();
+        $department = Department::select(
+            'departments.*',
+            'colleges.name as college_name'
 
-        return $subject;
+        )
+        ->leftJoin('colleges','colleges.id','departments.college_id')
+        ->get();
+        return $department;
     }
 
     public function insert(Request $request){
@@ -25,12 +25,11 @@ class SubjectController extends Controller
 
         try {
             DB::beginTransaction();
-
-            $subject = new Subject;
-            $subject->name = $request->name;
-            $subject->subject_code = $request->subject_code;
-            $subject->department_id = $request->dept_id;
-            $subject->save();
+            $department = new Department();
+            $department->dept_code = $request->dept_code;
+            $department->college_id = $request->college_id;
+            $department->name = $request->name;
+            $department->save();
 
             DB::commit();
         } catch (\Throwable $e) {
@@ -46,35 +45,28 @@ class SubjectController extends Controller
         try {
             DB::beginTransaction();
 
-            $subject = Subject::find($request->id);
-            $subject->name = $request->name;
-            $subject->subject_code = $request->subject_code;
-            $subject->department_id = $request->dept_id;
-            $subject->save();
+            $department = Department::find($request->id);
+            $department->dept_code = $request->dept_code;
+            $department->college_id = $request->college_id;
+            $department->name = $request->name;
+            $department->save();
 
             DB::commit();
-
         } catch (\Throwable $e) {
             DB::rollBack();
-
             return $e->getMessage();
         }
     }
 
     public function delete(Request $request){
-        // return $request;
-
         try {
             DB::beginTransaction();
-
-            $subject = Subject::find($request->id);
-            $subject->delete();
-
+            $department = Department::find($request->id);
+            $department->delete();
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
-
-            $e->getMessage();
+            return $e->getMessage();
         }
     }
 }

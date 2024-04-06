@@ -4,18 +4,16 @@
         <v-simple-table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
                     <th>Department</th>
+                    <th>College</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in professorData" :key="index">
+                <tr v-for="(item, index) in departmentData" :key="index">
                     <td>{{item.name}}</td>
-                    <td>{{item.email}}</td>
-                    <td>{{item.dept_name}}</td>
+                    <td>{{item.college_name}}</td>
                     <td>{{ item.created_at }}</td>
                     <td>
                         <v-btn @click="Edit(item)" icon dark small color="success"><v-icon>mdi-pencil</v-icon></v-btn>
@@ -33,19 +31,17 @@
                         <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field dense name="prof_code" label="Professor Code" outlined></v-text-field>
-                        <v-text-field dense name="name" label="Name" outlined></v-text-field>
-                        <v-text-field dense name="email" label="Email" outlined></v-text-field>
-                        <v-text-field dense name="password" label="Password" outlined></v-text-field>
+                        <v-text-field dense name="dept_code" label="Department Code" outlined></v-text-field>
                         <v-autocomplete 
                             dense
-                            name="department" 
-                            label="Department" 
+                            name="college_id" 
+                            label="College" 
                             outlined
-                            :items="departmentData"
+                            :items="collegeData"
                             item-text="name"
                             item-value="id"
                         ></v-autocomplete>
+                        <v-text-field dense name="name" label="name" outlined></v-text-field>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn @click="saveData" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
@@ -62,20 +58,18 @@
                         <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field v-model="tempCode" dense name="prof_code" label="Professor Code" outlined></v-text-field>
-                        <v-text-field v-model="tempName" name="name" label="name" outlined></v-text-field>
-                        <v-text-field v-model="tempEmail" dense name="email" label="Email" outlined></v-text-field>
-                        <v-text-field v-model="tempPassword" dense name="password" label="Password" outlined></v-text-field>
+                        <v-text-field v-model="tempDepartmentCode" name="dept_code" label="Department Code" outlined></v-text-field>
                         <v-autocomplete 
-                            v-model="tempDept"
+                            v-model="tempCollegeId"
                             dense
-                            name="department" 
-                            label="Department" 
+                            name="college_id" 
+                            label="College" 
                             outlined
-                            :items="departmentData"
+                            :items="collegeData"
                             item-text="name"
                             item-value="id"
                         ></v-autocomplete>
+                        <v-text-field v-model="tempName" name="name" label="name" outlined></v-text-field>
                         <input type="hidden" name="id" :value="editData.id">
                     </v-card-text>
                     <v-card-actions>
@@ -104,42 +98,77 @@
 <script>
 import axios from 'axios';
 import {mapState, mapActions} from 'vuex';
-import apiMethods from './professor_props/apiMethods';
-import norwelData from './professor_props/norwelData';
 export default {
     data() {
         return {
             insertDialog: false,
             editDialog: false,
             deleteDialog: false,
+            tempDepartmentCode: null,
             tempName: null,
-            tempCode: null,
-            tempEmail: null,
-            tempPassword: null,
-            tempDept: null,
+            tempCollegeId: null,
             editData: [],
             deleteData:[],
-            ...norwelData
         }
     },
 
     methods: {
         ...mapActions([
-            'getProfessorData',
-            'getDepartmentData'
+            'getDepartmentData',
+            'getCollegeData'
         ]),
 
-        ...apiMethods,
+        dataDelete(){
+            axios({
+                method: 'post',
+                url: 'api/department/delete',
+                data: {id: this.deleteData.id}
+            }).then(() =>{
+                this.deleteDialog = false
+                this.getDepartmentData()
+            })
+        },
+
+        updateData(){
+            if(this.$refs.Edit.validate()){
+                var myform = document.getElementById('Edit');
+                var formdata = new FormData(myform);
+                axios({
+                    method: 'post',
+                    url: 'api/department/update',
+                    data: formdata
+                }).then(() =>{
+                    this.editDialog = false
+                    this.getDepartmentData()
+                })
+            }
+
+        },
 
         Edit(data){
             // console.log(data)
             this.editData = data
+            this.tempDepartmentCode = data.dept_code
+            this.tempCollegeId = data.college_id
             this.tempName = data.name
-            this.tempCode = data.prof_code
-            this.tempEmail = data.email
-            this.tempPassword = data.password
-            this.tempDept = data.department_id
             this.editDialog = true
+        },
+
+        saveData(){
+            if(this.$refs.Insert.validate()){
+                var myForm = document.getElementById('Insert')
+                var formData = new FormData(myForm)
+
+                axios({
+                    method: 'post',
+                    url: 'api/department/insert',
+                    data: formData
+                }).then(() =>{
+                    this.insertDialog = false
+                    this.$refs.Insert.reset()
+                    this.getDepartmentData()
+                })
+            }
         },
 
         toggleInsert(){
@@ -153,16 +182,14 @@ export default {
 
     computed: {
         ...mapState([
-            'professorData',
-            'departmentData'
+            'departmentData',
+            'collegeData'
         ]),
       },
 
       mounted() {
-        this.getProfessorData()
         this.getDepartmentData()
-
-        // alert(this.testString)
+        this.getCollegeData()
       },
 }
 </script>

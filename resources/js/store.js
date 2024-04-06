@@ -1,6 +1,15 @@
 import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
+import collegeActions from './college_store/collegeActions';
+import collegeData from './college_store/collegeData';
+import collegeMutations from './college_store/collegeMutations';
+import departmentMutations from './department_store/departmentMutations';
+import departmentActions from './department_store/departmentActions';
+import departmentData from './department_store/departmentData';
+import scheduleData from './schedule_store/scheduleData';
+import scheduleActions from './schedule_store/scheduleActions';
+import scheduleMutations from './schedule_store/scheduleMutations';
 import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
@@ -14,6 +23,9 @@ const persistedData = new createPersistedState({
 
 export default new Vuex.Store({
     state:{
+        ...scheduleData,
+        ...departmentData,
+        ...collegeData,
         subjectData: [],
         studentData: [],
         professorData: [],
@@ -80,6 +92,10 @@ export default new Vuex.Store({
     },
 
     actions:{
+        ...scheduleActions,
+        ...departmentActions,
+        ...collegeActions,
+        
         getSubjectData(context){
             context.commit('getSubjectData')
         },
@@ -109,6 +125,9 @@ export default new Vuex.Store({
     },
 
     mutations:{
+        ...scheduleMutations,
+        ...departmentMutations,
+        ...collegeMutations,
 
         getSubjectData(state){
             axios({
