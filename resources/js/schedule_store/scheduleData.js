@@ -1,5 +1,6 @@
 const scheduleData = {
-    schedData : []
+    schedData : [],
+    SCHEDULE_STUDENTS: [],
 }
 
 export default scheduleData;

@@ -1,11 +1,11 @@
 const departmentActions = {
 
-    getDepartmentData(context){
+    GET_DEPARTMENTS_DATA(context){
         axios({
             method: "GET",
-            url: '/getDepartmentData'
+            url: '/api/departments'
         }).then((res) =>{
-            context.commit('getDepartmentData', res.data)
+            context.commit('SET_DEPARTMENTS_DATA', res.data)
         })
     },
 

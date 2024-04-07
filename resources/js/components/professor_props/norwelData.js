@@ -1,5 +1,6 @@
 const norwelData = {
-    testString : 'HELLO STRING TEST'
+    viewDialog: false,
+
 }
 
 export default norwelData;

@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in departmentData" :key="index">
+                <tr v-for="(item, index) in DEPARTMENTS_DATA" :key="index">
                     <td>{{item.name}}</td>
                     <td>{{item.college_name}}</td>
                     <td>{{ item.created_at }}</td>
@@ -37,7 +37,7 @@
                             name="college_id" 
                             label="College" 
                             outlined
-                            :items="collegeData"
+                            :items="COLLEGES_DATA"
                             item-text="name"
                             item-value="id"
                         ></v-autocomplete>
@@ -65,7 +65,7 @@
                             name="college_id" 
                             label="College" 
                             outlined
-                            :items="collegeData"
+                            :items="COLLEGES_DATA"
                             item-text="name"
                             item-value="id"
                         ></v-autocomplete>
@@ -114,8 +114,8 @@ export default {
 
     methods: {
         ...mapActions([
-            'getDepartmentData',
-            'getCollegeData'
+            'GET_DEPARTMENTS_DATA',
+            'GET_COLLEGES_DATA'
         ]),
 
         dataDelete(){
@@ -125,7 +125,7 @@ export default {
                 data: {id: this.deleteData.id}
             }).then(() =>{
                 this.deleteDialog = false
-                this.getDepartmentData()
+                this.GET_DEPARTMENTS_DATA()
             })
         },
 
@@ -139,7 +139,7 @@ export default {
                     data: formdata
                 }).then(() =>{
                     this.editDialog = false
-                    this.getDepartmentData()
+                    this.GET_DEPARTMENTS_DATA()
                 })
             }
 
@@ -166,7 +166,7 @@ export default {
                 }).then(() =>{
                     this.insertDialog = false
                     this.$refs.Insert.reset()
-                    this.getDepartmentData()
+                    this.GET_DEPARTMENTS_DATA()
                 })
             }
         },
@@ -182,14 +182,14 @@ export default {
 
     computed: {
         ...mapState([
-            'departmentData',
-            'collegeData'
+            'DEPARTMENTS_DATA',
+            'COLLEGES_DATA'
         ]),
       },
 
       mounted() {
-        this.getDepartmentData()
-        this.getCollegeData()
+        this.GET_DEPARTMENTS_DATA()
+        this.GET_COLLEGES_DATA()
       },
 }
 </script>

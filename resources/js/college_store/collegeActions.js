@@ -1,11 +1,11 @@
 const collegeActions = {
 
-    getCollegeData(context){
+    GET_COLLEGES_DATA(context){
         axios({
             method: "GET",
-            url: '/getCollegeData'
+            url: '/api/colleges'
         }).then((res) =>{
-            context.commit('getCollegeData', res.data)
+            context.commit('SET_COLLEGES_DATA', res.data)
         })
     },
 

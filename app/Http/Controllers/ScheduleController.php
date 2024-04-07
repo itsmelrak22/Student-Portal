@@ -14,12 +14,12 @@ class ScheduleController extends Controller
     {
         $schedule = Schedule::select(
             'schedules.*',
-            'professors.name as prof_name',
+            'users.name as prof_name',
             'subjects.name as subject_name',
             'departments.id as department_id',
             'colleges.id as college_id',
         )
-        ->leftJoin('professors', 'professors.id', 'schedules.professor_id')
+        ->leftJoin('users', 'users.id', 'schedules.professor_id')
         ->leftJoin('subjects', 'subjects.id', 'schedules.subject_id')
         ->leftJoin('departments', 'departments.id', 'subjects.department_id')
         ->leftJoin('colleges', 'colleges.id', 'departments.college_id')
@@ -50,7 +50,40 @@ class ScheduleController extends Controller
     }
 
     public function update(Request $request){
-        return $request;
+        // return $request;
+        try {
+            DB::beginTransaction();
+            $schedule = Schedule::find($request->id);
+            $schedule->sched_code = $request->sched_code;
+            $schedule->subject_id = $request->subject;
+            $schedule->professor_id = $request->professor;
+            $schedule->name = $request->name;
+            $schedule->save();
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+
+    public function delete(Request $request){
+        try {
+            DB::beginTransaction();
+            $schedule = Schedule::find($request->id);
+            $schedule->delete();
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+
+    public function schedule_students($id){
+        return Schedule::select('schedules.*', 'subjects.name as subject_name', 'subjects.subject_code')
+                        ->leftJoin('subjects', 'subjects.id', 'schedules.subject_id')
+                        ->with('students')->where([
+                            ["schedules.id", $id]
+                        ])->first();
     }
 
     

@@ -5,13 +5,17 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in registrarData" :key="index">
+                <tr v-for="(item, index) in REGISTRARS_USERS_DATA" :key="index">
                     <td>{{item.name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.username}}</td>
                     <td>{{ item.created_at }}</td>
                     <td>
                         <v-btn @click="Edit(item)" icon dark small color="success"><v-icon>mdi-pencil</v-icon></v-btn>
@@ -20,41 +24,137 @@
                 </tr>
             </tbody>
         </v-simple-table>
-        <v-dialog width="500" v-model="insertDialog" persistent>
-            <v-form id="Insert" ref="Insert">
-                <v-card>
-                    <v-card-title>
-                        Insert
+
+
+
+         
+        <v-row>
+            <v-dialog width="400" min-width="400" max-width="600" v-model="insertDialog" persistent>
+                <!-- <v-form id="Insert" ref="Insert"> -->
+                <v-form id="Store" ref="Store" @submit.prevent="Store">
+                    <v-card>
+                        <v-card-title>
+                            <span>CREATE REGISTRAR ENTRY</span>
                         <v-spacer/>
                         <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
-                    </v-card-title>
-                    <v-card-text>
-                        <v-text-field dense name="name" label="name" outlined></v-text-field>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn @click="saveData" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-form>
-        </v-dialog>
-        <v-dialog width="500" v-model="editDialog" persistent>
-            <v-form id="Edit" ref="Edit">
-                <v-card>
-                    <v-card-title>
-                        Edit
+                        </v-card-title>
+                        <v-card-text>
+                            <v-col cols="12" >
+                                <v-text-field
+                                    dense
+                                    outlined
+                                    label="REGISTRAR CODE"
+                                    prefix="R_"
+                                    :rules="rules.required"
+                                    :value="newCode"
+                                    name="registrar_code"
+                                    readonly
+                                ></v-text-field>
+
+                                <v-text-field 
+                                    dense 
+                                    name="name" 
+                                    label="FULLNAME" 
+                                    outlined
+                                    :rules="rules.required"
+                                ></v-text-field>
+
+                                <v-text-field 
+                                    dense 
+                                    name="email" 
+                                    label="EMAIL" 
+                                    :rules="[...rules.required, ...rules.email, ...rules.uniqueEmail(REGISTRARS_USERS_DATA)]"
+                                    outlined
+                                ></v-text-field>
+
+                                <v-autocomplete
+                                    dense 
+                                    name="role" 
+                                    label="ROLE" 
+                                    outlined
+                                    :rules="rules.required"
+                                    :items="ROLES"
+                                    chips
+                                    small-chips
+                                    value="Registrar"
+                                    readonly
+                                ></v-autocomplete>
+                            </v-col>
+                            
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-btn type="submit" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-form>
+            </v-dialog>
+        </v-row>
+
+        <v-row>
+            <v-dialog width="400" min-width="400" max-width="600" v-model="editDialog" persistent>
+                <!-- <v-form id="Insert" ref="Insert"> -->
+                <v-form id="Update" ref="Update" @submit.prevent="Update">
+                    <v-card>
+                        <v-card-title>
+                            <span>UPDATE REGISTRAR ENTRY</span>
                         <v-spacer/>
                         <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
-                    </v-card-title>
-                    <v-card-text>
-                        <v-text-field v-model="tempName" name="name" label="name" outlined></v-text-field>
-                        <input type="hidden" name="id" :value="editData.id">
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn @click="updateData" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-form>
-        </v-dialog>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-col cols="12" >
+                                <v-text-field
+                                    v-model="tempData.registrar_code"
+                                    dense
+                                    outlined
+                                    label="REGISTRAR CODE"
+                                    prefix="R_"
+                                    :rules="rules.required"
+                                    :value="newCode"
+                                    name="registrar_code"
+                                    readonly
+                                ></v-text-field>
+
+                                <v-text-field 
+                                    v-model="tempData.name"
+                                    dense 
+                                    name="name" 
+                                    label="FULLNAME" 
+                                    outlined
+                                    :rules="rules.required"
+                                ></v-text-field>
+
+                                <v-text-field 
+                                    v-model="tempData.email"
+                                    dense 
+                                    name="email" 
+                                    label="EMAIL" 
+                                    :rules="[...rules.required, ...rules.email, ...rules.uniqueDataEdit(REGISTRARS_USERS_DATA, tempData.currentEmail, 'email')]"
+                                    outlined
+                                ></v-text-field>
+
+                                <v-autocomplete
+                                    v-model="tempData.role"
+                                    dense 
+                                    name="role" 
+                                    label="ROLE" 
+                                    outlined
+                                    :rules="rules.required"
+                                    :items="ROLES"
+                                    chips
+                                    small-chips
+                                    value="Registrar"
+                                    readonly
+                                ></v-autocomplete>
+                            </v-col>
+                            
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-btn type="submit" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-form>
+            </v-dialog>
+        </v-row>
         <v-dialog width="300" v-model="deleteDialog" persistent>
                 <v-card>
                     <v-card-title >
@@ -74,7 +174,7 @@
 
 <script>
 import axios from 'axios';
-import {mapState, mapActions} from 'vuex';
+import {mapState, mapActions, mapGetters} from 'vuex';
 export default {
     data() {
         return {
@@ -84,64 +184,110 @@ export default {
             tempName: null,
             editData: [],
             deleteData:[],
+            tempData: {}
         }
     },
+    computed: {
+        ...mapState([
+            'registrarData',
+            "USERS_DATA",
+            'rules',
+            'ROLES'
+        ]),
+        ...mapGetters([
+            "REGISTRARS_USERS_DATA",
+            "ACTIVE_USERS"
+        ]),
+
+        newCode(){ 
+            let id = this.USERS_DATA.reduce((max, obj) => Math.max(max, obj.id), 0) + 1;
+            let paddedId = String(id).padStart(5, '0');
+            return `${new Date().getFullYear() }${paddedId}`;
+        }
+
+      },
+
 
     methods: {
         ...mapActions([
-            'getRegistrarData'
+            'getRegistrarData',
+            "GET_USERS_DATA"
         ]),
+        Edit(data){
+            this.tempData = {...data};
+            this.tempData.currentEmail = data.email
+            this.tempData.registrar_code = this.tempData.username.split('_')[1];
+            this.editDialog = true
+        },
+
+
+        Store(){
+            if(this.$refs.Store.validate()){
+                this.overlay = true;
+                const myForm = document.getElementById('Store');
+                const formdata = new FormData(myForm);
+
+                formdata.set("username", `R_${this.newCode}`)
+
+                axios({
+                    method: 'POST',
+                    url: '/api/users/account/store',
+                    data: formdata
+                }).then(async () => {
+                    await this.$refs.Store.reset()
+                    await this.GET_USERS_DATA()
+                }).catch((err) => {
+                    console.log("ERROR __")
+                    console.err(err)
+                })
+                .finally(() => {
+                    this.insertDialog = false
+
+                })
+            }
+        },
+
+        Update(){
+            if(this.$refs.Update.validate()){
+                this.overlay = true;
+                const myForm = document.getElementById('Update');
+                const formdata = new FormData(myForm);
+
+                axios({
+                    method: 'POST',
+                    url: `/api/users/account/update/${this.tempData.id}`,
+                    data: formdata
+                }).then( async () => {
+                    await this.GET_USERS_DATA()
+                    await this.$refs.Update.reset()
+                }).catch((err) => {
+                    console.log("ERROR __")
+                    console.err(err)
+                })
+                .finally(() => {
+                    this.editDialog = false
+                })
+            }
+        },
+
+
+
 
         dataDelete(){
             axios({
                 method: 'post',
-                url: 'api/registrar/delete',
-                data: {id: this.deleteData.id}
-            }).then(() =>{
+                url: `/api/users/account/delete/${this.deleteData.id}`,
+            }).then(async () =>{
+                await this.GET_USERS_DATA()
+            }).catch((err) => {
+                console.log("ERROR __")
+                console.err(err)
+            })
+            .finally(() => {
                 this.deleteDialog = false
-                this.getRegistrarData()
             })
         },
 
-        updateData(){
-            if(this.$refs.Edit.validate()){
-                var myform = document.getElementById('Edit');
-                var formdata = new FormData(myform);
-                axios({
-                    method: 'post',
-                    url: 'api/registrar/update',
-                    data: formdata
-                }).then(() =>{
-                    this.editDialog = false
-                    this.getRegistrarData()
-                })
-            }
-
-        },
-
-        Edit(data){
-            // console.log(data)
-            this.editData = data
-            this.tempName = data.name
-            this.editDialog = true
-        },
-
-        saveData(){
-            if(this.$refs.Insert.validate()){
-                var myForm = document.getElementById('Insert')
-                var formData = new FormData(myForm)
-
-                axios({
-                    method: 'post',
-                    url: 'api/registrar/insert',
-                    data: formData
-                }).then(() =>{
-                    this.insertDialog = false
-                    this.$refs.Insert.reset()
-                    this.getRegistrarData()
-                })
-            }
-        },
 
         toggleInsert(){
             this.insertDialog = true
@@ -152,14 +298,10 @@ export default {
         }
     },
 
-    computed: {
-        ...mapState([
-            'registrarData',
-        ]),
-      },
 
-      mounted() {
-        this.getRegistrarData()
+      async mounted() {
+        await this.GET_USERS_DATA();
+
       },
 }
 </script>

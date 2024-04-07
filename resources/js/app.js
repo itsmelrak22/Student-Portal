@@ -14,7 +14,8 @@ new Vue({
     vuetify: new Vuetify(),
     components : {
         App,
-        Login
+        Login,
+        // Landing
     }
     // render: h=>h(App)
 });

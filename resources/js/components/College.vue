@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in collegeData" :key="index">
+                <tr v-for="(item, index) in COLLEGES_DATA" :key="index">
                     <td>{{item.college_code}}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.created_at }}</td>
@@ -94,7 +94,7 @@ export default {
 
     methods: {
         ...mapActions([
-            'getCollegeData'
+            'GET_COLLEGES_DATA'
         ]),
 
         dataDelete(){
@@ -104,7 +104,7 @@ export default {
                 data: {id: this.deleteData.id}
             }).then(() =>{
                 this.deleteDialog = false
-                this.getCollegeData()
+                this.GET_COLLEGES_DATA()
             })
         },
 
@@ -118,7 +118,7 @@ export default {
                     data: formdata
                 }).then(() =>{
                     this.editDialog = false
-                    this.getCollegeData()
+                    this.GET_COLLEGES_DATA()
                 })
             }
 
@@ -144,7 +144,7 @@ export default {
                 }).then(() =>{
                     this.insertDialog = false
                     this.$refs.Insert.reset()
-                    this.getCollegeData()
+                    this.GET_COLLEGES_DATA()
                 })
             }
         },
@@ -160,12 +160,12 @@ export default {
 
     computed: {
         ...mapState([
-            'collegeData',
+            'COLLEGES_DATA',
         ]),
       },
 
       mounted() {
-        this.getCollegeData()
+        this.GET_COLLEGES_DATA()
       },
 }
 </script>

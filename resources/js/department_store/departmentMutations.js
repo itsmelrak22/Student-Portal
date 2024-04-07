@@ -1,7 +1,7 @@
 const departmentMutations = {
   
-    getDepartmentData(state, payload){
-        state.departmentData = payload
+    SET_DEPARTMENTS_DATA(state, payload){
+        state.DEPARTMENTS_DATA = payload
     }
 }
 

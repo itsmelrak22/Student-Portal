@@ -5,10 +5,25 @@
         app
       >
          <v-list dense>
-            <v-subheader>List of Tables:</v-subheader>
+            <v-subheader>Schedules :</v-subheader>
+               <v-divider></v-divider>
                <v-list-item
-                  v-for="(item, i) in items"
-                  :key="i"
+                  v-for="(item, i) in scheduleItems"
+                  :key="i + 'scheduleItems'"
+                  :to="item.to"
+               >
+                  <v-list-item-icon>
+                     <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                     <v-list-item-title v-text="item.text"></v-list-item-title>
+                  </v-list-item-content>
+               </v-list-item> 
+            <v-subheader>Users:</v-subheader>
+               <v-divider></v-divider>
+               <v-list-item
+                  v-for="(item, i) in userItems"
+                  :key="i + 'userItems'"
                   :to="item.to"
                >
                   <v-list-item-icon>
@@ -18,6 +33,23 @@
                      <v-list-item-title v-text="item.text"></v-list-item-title>
                   </v-list-item-content>
                </v-list-item>
+               <v-subheader>Master Lists:</v-subheader>
+               <v-divider></v-divider>
+               <v-list-item
+                  v-for="(item, i) in items"
+                  :key="i + 'items'"
+                  :to="item.to"
+               >
+                  <v-list-item-icon>
+                     <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                     <v-list-item-title v-text="item.text"></v-list-item-title>
+                  </v-list-item-content>
+               </v-list-item>
+               <v-divider></v-divider>
+              
+
          </v-list>
       </v-navigation-drawer>
 
@@ -68,14 +100,20 @@ import {mapState} from 'vuex';
    export default {
       data: () => ({
          drawer: null,
-         items:[
+         userItems: [
             {text:'Registrar', icon:'mdi-home', to:'registrar'},
-            {text:'College', icon:'mdi-home', to:'college'},
-            {text:'Schedule', icon:'mdi-home', to:'schedule'},
-            {text:'Department', icon:'mdi-home', to:'department'},
             {text:'Professor', icon:'mdi-hand-wave', to:'professor'},
             {text: 'Students', icon: 'mdi-account', to : 'students'},
+         ],
+
+         items:[
+            {text:'College', icon:'mdi-home', to:'college'},
+            {text:'Department', icon:'mdi-home', to:'department'},
             {text: 'Subjects', icon: 'mdi-account', to : 'subjects'},
+         ],
+
+         scheduleItems: [
+            {text:'Schedule', icon:'mdi-home', to:'schedule'},
          ],
          csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 

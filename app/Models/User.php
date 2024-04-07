@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
     ];
 
@@ -41,4 +43,62 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getUsers($role){
+        $users = new self;
+
+        return $users->where([
+            "role" => $role
+        ])->get();
+    }
+
+    public static function storeUserEntry($data, $role){
+        $user = new self;
+        $user->name = $data["name"];
+        $user->email = $data["email"];
+        $user->username = $data["username"];
+        $user->password = bcrypt($data["0000"]);
+        $user->role = $role;
+
+
+        if($role == "Professor" || $role == "Student"){
+            $user->department_id = $data['department_id'];
+        }
+
+        $user->save();
+    }
+    public static function updateUserEntry($data, $role, $user){
+        $user->name = $data["name"];
+        $user->email = $data["email"];
+        $user->role = $role;
+
+        
+        if($role == "Professor" || $role == "Student"){
+            $user->department_id = $data['department_id'];
+        }
+        
+        $user->save();
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class,'professor_id', 'id')
+                            ->select('schedules.*', 'subjects.name AS subject_name')
+                            ->leftJoin('subjects', 'subjects.id',  'schedules.subject_id');
+    }
+    public function subjects()
+    {
+        return $this->hasMany(StudentSchedule::class,'student_id', 'id')
+                            ->select(
+                                'student_schedules.*',
+                                'schedules.name as schedule_name', 
+                                'schedules.sched_code AS schedule_code',
+                                'subjects.name AS subject_name',
+                                'subjects.subject_code'
+                            )
+                            ->leftJoin('schedules', 'schedules.id',  'student_schedules.schedule_id')
+                            ->leftJoin('subjects', 'subjects.id',  'schedules.subject_id');
+
+    }
+
 }

@@ -27,6 +27,31 @@ use App\Models\User;
 //     return $request->user();
 // });
 
+Route::get('/getRegistrarData', [RegistrarController::class, 'index']);
+Route::get('/getProfessorData', [ProfessorController::class, 'index']);
+Route::get('/students', [StudentController::class, 'index']);
+Route::get('/subjects', [SubjectController::class, 'index']);
+Route::get('/colleges', [CollegeController::class, 'index']);
+Route::get('/departments', [DepartmentController::class, 'index']);
+
+Route::prefix('schedules')->group( function (){
+    Route::get('/', [ScheduleController::class, 'index']);
+    Route::get('/{id}/students', [ScheduleController::class, 'schedule_students']);
+});
+
+
+Route::prefix('users')->group( function (){
+    Route::get('/{role}', [UserController::class, 'index']);
+    Route::get('/account', [UserController::class, 'account']);
+    Route::post('/account/store', [UserController::class, 'account_store']);
+    Route::post('/account/update/{user}', [UserController::class, 'account_update']);
+    Route::post('/account/delete/{user}', [UserController::class, 'account_delete']);
+
+    Route::get('/professor/{id}', [UserController::class, 'professor_schedule']);
+    Route::get('/students/{id}/schedules', [UserController::class, 'student_schedule']);
+
+});
+
 Route::prefix('registrar')->group( function (){
     Route::post('/insert', [RegistrarController::class, 'insert']);
     Route::post('/update', [RegistrarController::class, 'update']);

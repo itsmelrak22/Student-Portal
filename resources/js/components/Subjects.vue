@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in subjectData" :key="index">
+                <tr v-for="(item, index) in SUBJECTS_DATA" :key="index">
                     <td>{{item.name}}</td>
                     <td>{{item.dept_name}}</td>
                     <td>{{ item.created_at }}</td>
@@ -38,7 +38,7 @@
                             name="dept_id" 
                             label="Department" 
                             outlined
-                            :items="departmentData"
+                            :items="DEPARTMENTS_DATA"
                             item-text="name"
                             item-value="id"
                         ></v-autocomplete>
@@ -66,7 +66,7 @@
                             name="dept_id" 
                             label="Department" 
                             outlined
-                            :items="departmentData"
+                            :items="DEPARTMENTS_DATA"
                             item-text="name"
                             item-value="id"
                         ></v-autocomplete>
@@ -114,8 +114,8 @@ export default {
 
     methods: {
         ...mapActions([
-            'getSubjectData',
-            'getDepartmentData'
+            'GET_SUBJECTS_DATA',
+            'GET_DEPARTMENTS_DATA'
         ]),
 
         dataDelete(){
@@ -125,7 +125,7 @@ export default {
                 data: {id: this.deleteData.id}
             }).then(() =>{
                 this.deleteDialog = false
-                this.getSubjectData()
+                this.GET_SUBJECTS_DATA()
             })
         },
 
@@ -139,7 +139,7 @@ export default {
                     data: formdata
                 }).then(() =>{
                     this.editDialog = false
-                    this.getSubjectData()
+                    this.GET_SUBJECTS_DATA()
                 })
             }
 
@@ -166,7 +166,7 @@ export default {
                 }).then(() =>{
                     this.insertDialog = false
                     this.$refs.Insert.reset()
-                    this.getSubjectData()
+                    this.GET_SUBJECTS_DATA()
                 })
             }
         },
@@ -182,14 +182,14 @@ export default {
 
     computed: {
         ...mapState([
-            'subjectData',
-            'departmentData'
+            'SUBJECTS_DATA',
+            'DEPARTMENTS_DATA'
         ]),
       },
 
       mounted() {
-        this.getSubjectData()
-        this.getDepartmentData()
+        this.GET_SUBJECTS_DATA()
+        this.GET_DEPARTMENTS_DATA()
       },
 }
 </script>

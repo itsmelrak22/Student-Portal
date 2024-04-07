@@ -1,4 +1,9 @@
 const apiMethods = {
+    async viewData(id){
+        await this.GET_PROFESSOR_SCHEDULE_DATA(id)
+        this.viewDialog = true
+    },
+
     dataDelete(){
         axios({
             method: 'post',
@@ -45,5 +50,5 @@ const apiMethods = {
 
   };
   
-  export default apiMethods;
+  export default  apiMethods;
   

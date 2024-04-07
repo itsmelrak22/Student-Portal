@@ -34,13 +34,13 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('/auth-user', [AuthenticatedSessionController::class, 'show']);
 
-    Route::get('/getRegistrarData', [RegistrarController::class, 'index']);
-    Route::get('/getProfessorData', [ProfessorController::class, 'index']);
-    Route::get('/getStudentData', [StudentController::class, 'index']);
-    Route::get('/getSubjectData', [SubjectController::class, 'index']);
-    Route::get('/getCollegeData', [CollegeController::class, 'index']);
-    Route::get('/getDepartmentData', [DepartmentController::class, 'index']);
-    Route::get('/getScheduleData', [ScheduleController::class, 'index']);
+    // Route::get('/getRegistrarData', [RegistrarController::class, 'index']);
+    // Route::get('/getProfessorData', [ProfessorController::class, 'index']);
+    // Route::get('/getStudentData', [StudentController::class, 'index']);
+    // Route::get('/getSubjectData', [SubjectController::class, 'index']);
+    // Route::get('colleges', [CollegeController::class, 'index']);
+    // Route::get('/getDepartmentData', [DepartmentController::class, 'index']);
+    // Route::get('/getScheduleData', [ScheduleController::class, 'index']);
     
     Route::get('/{any?}', [SpaController::class, 'index'])->where('any', '.*');
 });

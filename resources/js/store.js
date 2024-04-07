@@ -12,6 +12,16 @@ import scheduleActions from './schedule_store/scheduleActions';
 import scheduleMutations from './schedule_store/scheduleMutations';
 import createPersistedState from 'vuex-persistedstate';
 
+import USER_STORE_STATES from './users_store/state';
+import USER_STORE_MUTATIONS from './users_store/mutations';
+import USER_STORE_ACTIONS from './users_store/actions';
+import USER_STORE_GETTERS from './users_store/getters';
+import studentData from './student_store/studentData';
+import studentActions from './student_store/studentActions';
+import studentMutations from './student_store/studentMutations';
+import SUBJECT_STORE_STATES from './subject_store/state';
+import SUBJECT_STORE_MUTATIONS from './subject_store/mutations';
+import SUBJECT_STORE_ACTIONS from './subject_store/actions';
 Vue.use(Vuex)
 const persistedData = new createPersistedState({
     key:'local_storage',
@@ -23,11 +33,25 @@ const persistedData = new createPersistedState({
 
 export default new Vuex.Store({
     state:{
+        /* 
+        * 
+        * KARL ->
+        * 
+        * */
+
+        ...USER_STORE_STATES,
+
+        /* 
+        * 
+        * <- KARL
+        * 
+        * */
         ...scheduleData,
         ...departmentData,
         ...collegeData,
-        subjectData: [],
-        studentData: [],
+        ...studentData,
+        ...SUBJECT_STORE_STATES,
+        ROLES: ['Registrar', 'Professor', 'Student'],
         professorData: [],
         registrarData: [],
         loggedInUser : null,
@@ -53,6 +77,23 @@ export default new Vuex.Store({
                 (v) =>
                     !v || /[0-9A-Fa-f]{6}/.test(v) || "Must be a hex value",
             ],
+            uniqueEmail(list) {
+                return [
+                    (v) => !!v || "Field is required",
+                    (v) => 
+                        // console.log(typeof _.find(list, {name : v}) === 'object', list, v)
+                        typeof _.find(list, {email : v}) === 'undefined' ||
+                        "Email is already exists.",
+                ];
+            },
+            uniqueDataEdit(list, excludeName, property) {
+                return [
+                  (v) => !!v || "Field is required",
+                  (v) =>
+                    typeof _.find(list, (item) => item[property] === v && item[property] !== excludeName) === 'undefined' ||
+                    "already exists.",
+                ];
+            },        
             confirmpassword(temp, actual) {
                 return [(v) => temp === actual || "Password must match"];
             },
@@ -92,16 +133,25 @@ export default new Vuex.Store({
     },
 
     actions:{
+         /* 
+        * 
+        * KARL ->
+        * 
+        * */
+       
+         ...USER_STORE_ACTIONS,
+
+         /* 
+         * 
+         * <- KARL
+         * 
+         * */
         ...scheduleActions,
         ...departmentActions,
         ...collegeActions,
-        
-        getSubjectData(context){
-            context.commit('getSubjectData')
-        },
-        getStudentData(context){
-            context.commit('getStudentData')
-        },
+        ...studentActions,
+        ...SUBJECT_STORE_ACTIONS,
+
         getProfessorData(context){
             context.commit('getProfessorData')
         },
@@ -125,26 +175,25 @@ export default new Vuex.Store({
     },
 
     mutations:{
+        /* 
+        * 
+        * KARL ->
+        * 
+        * */
+       
+        ...USER_STORE_MUTATIONS,
+
+        /* 
+        * 
+        * <- KARL
+        * 
+        * */
         ...scheduleMutations,
         ...departmentMutations,
         ...collegeMutations,
-
-        getSubjectData(state){
-            axios({
-                method: "GET",
-                url: '/getSubjectData'
-            }).then((res) =>{
-                state.subjectData = res.data
-            })
-        },
-        getStudentData(state){
-            axios({
-                method: "GET",
-                url: '/getStudentData'
-            }).then((res) =>{
-                state.studentData = res.data
-            })
-        },
+        ...studentMutations,
+        ...SUBJECT_STORE_MUTATIONS,
+        
         getProfessorData(state){
             axios({
                 method: "GET",
@@ -177,6 +226,20 @@ export default new Vuex.Store({
             state.allUsers = data
         }
     },
-    getters:{},
+    getters:{
+        /* 
+        * 
+        * KARL ->
+        * 
+        * */
+       
+        ...USER_STORE_GETTERS,
+
+        /* 
+        * 
+        * <- KARL
+        * 
+        * */ 
+    },
     plugins: [persistedData]
 });

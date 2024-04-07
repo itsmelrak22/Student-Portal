@@ -1,7 +1,7 @@
 const collegeMutations = {
   
-    getCollegeData(state, payload){
-        state.collegeData = payload
+    SET_COLLEGES_DATA(state, payload){
+        state.COLLEGES_DATA = payload
     }
 }
 

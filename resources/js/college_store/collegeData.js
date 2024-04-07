@@ -1,5 +1,5 @@
 const collegeData = {
-    collegeData : []
+    COLLEGES_DATA : []
 }
 
 export default collegeData;
