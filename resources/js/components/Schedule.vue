@@ -167,16 +167,35 @@
                         
                     </v-card-title>
                     <v-card-text>
-                        <div>
-                            <p>SCHEDULE CODE : <span>{{ SCHEDULE_STUDENTS.sched_code }}</span></p>
-                            <p>SUBJECT CODE : <span>{{ SCHEDULE_STUDENTS.subject_code }}</span></p>
-                            <p>SUBJECT NAME : <span>{{ SCHEDULE_STUDENTS.subject_name }}</span></p>
-                        </div>
+                        <v-form id="StoreStudentSched" ref="StoreStudentSched" @submit.prevent="StoreStudentSched">
+                            <div>
+                                <input type="hidden" name="sched_id" :value="SCHEDULE_STUDENTS.id">
+                                <p>SCHEDULE CODE : <span>{{ SCHEDULE_STUDENTS.sched_code }}</span></p>
+                                <p>SUBJECT CODE : <span >{{ SCHEDULE_STUDENTS.subject_code }}</span></p>
+                                <p>SUBJECT NAME : <span>{{ SCHEDULE_STUDENTS.subject_name }}</span></p>
+                            </div>
+
+                            <div>
+                                <v-autocomplete 
+                                    dense
+                                    name="student_id"
+                                    label="Student Code" 
+                                    outlined
+                                    :items="filterStudentsForSchedule"
+                                    item-text="username"
+                                    item-value="id"
+                                ></v-autocomplete>
+                                <v-spacer></v-spacer>
+                            </div>
+                            <v-btn type="submit" dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Submit</v-btn>
+
+                        </v-form>
                     </v-card-text>
                     <v-card-text>
                         <v-simple-table>
                             <thead>
                                 <tr>
+                                    <th>Student Name</th>
                                     <th>Schedule Code</th>
                                     <th>Schedule Name</th>
                                     <th>Professor</th>
@@ -185,10 +204,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(student, index) in SCHEDULE_STUDENTS.students" :key="index + 'student'">
-                                    <td>{{ student }}</td>
-                                    <td>{{ student }}</td>
-                                    <td>{{ student }}</td>
-                                    <td>{{ student }}</td>
+                                    <td>{{ student.student_name }}</td>
+                                    <td>{{ SCHEDULE_STUDENTS.sched_code }}</td>
+                                    <td>{{ SCHEDULE_STUDENTS.name }}</td>
+                                    <td>{{ SCHEDULE_STUDENTS.prof_name }}</td>
+                                    <td>{{ SCHEDULE_STUDENTS.subject_name }}</td>
                                 </tr>
                             </tbody>
                         </v-simple-table>
@@ -239,7 +259,8 @@ export default {
                 professor_id: null,
                 name: null,
                 sched_code: null,
-            }
+            },
+            selectedScheduleId: 0,
         }
     },
 
@@ -250,11 +271,12 @@ export default {
             'DEPARTMENTS_DATA',
             'schedData',
             'COLLEGES_DATA',
-            'SCHEDULE_STUDENTS'
+            'SCHEDULE_STUDENTS',
         ]),
 
         ...mapGetters([
             "PROFESSORS_USERS_DATA",
+            "STUDENT_USERS_DATA",
         ]),
 
         filteredDepartment(){
@@ -272,6 +294,14 @@ export default {
             const filtered = [...this.PROFESSORS_USERS_DATA];
             return filtered.filter(res => res.department_id == this.scheduleData.department_id);
         },
+        
+        filterStudentsForSchedule(){
+            const filtered = [...this.STUDENT_USERS_DATA];
+
+            console.log('filtered', filtered)
+            return filtered.filter(res => res.department_id == this.scheduleData.department_id);
+
+        }
       },
 
     methods: {
@@ -282,13 +312,37 @@ export default {
             'getScheduleData',
             'GET_COLLEGES_DATA',
             'GET_USERS_DATA',
-            'GET_SCHEDULE_STUDENTS'
+            'GET_SCHEDULE_STUDENTS',
+            
         ]),
 
         // ...studentMethods,
 
+        StoreStudentSched(){
+            if(this.$refs.StoreStudentSched.validate()){
+                // this.overlay = true;
+                const myForm = document.getElementById('StoreStudentSched');
+                const formdata = new FormData(myForm);
+
+                axios({
+                    method: 'post',
+                    url: 'api/student_schedule/insert',
+                    data: formdata,
+                }).then(async () => {
+                    await this.$refs.StoreStudentSched.reset()
+                    await this.GET_SCHEDULE_STUDENTS(this.selectedScheduleId)
+
+                }).catch((err) => {
+                    console.log("ERROR __")
+                    console.err(err)
+                }).finally(() => {
+                })
+            }
+        },
+
         async viewData(id){
             console.log(id)
+            this.selectedScheduleId = id
             await this.GET_SCHEDULE_STUDENTS(id)
             this.viewDialog = true
 

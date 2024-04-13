@@ -78,7 +78,7 @@ class UserController extends Controller
      */
     public function index($role = null)
     {
-       if( $role == "Professor" || $role == "Student"  ){
+    //    if( $role == "Professor" || $role == "Student"  ){
         return User::select(
                     "users.*",
                     "colleges.name as college_name",
@@ -90,9 +90,9 @@ class UserController extends Controller
                     ->withTrashed()
                     ->get();
 
-       }else{
-        return User::withTrashed()->get();
-       }
+    //    }else{
+    //     return User::withTrashed()->get();
+    //    }
     }
 
     public function student_schedule($id){

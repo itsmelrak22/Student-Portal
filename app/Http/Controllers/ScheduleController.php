@@ -79,7 +79,8 @@ class ScheduleController extends Controller
     }
 
     public function schedule_students($id){
-        return Schedule::select('schedules.*', 'subjects.name as subject_name', 'subjects.subject_code')
+        return Schedule::select('schedules.*', 'subjects.name as subject_name', 'subjects.subject_code', 'users.name as prof_name')
+                        ->leftJoin('users', 'users.id', 'schedules.professor_id')
                         ->leftJoin('subjects', 'subjects.id', 'schedules.subject_id')
                         ->with('students')->where([
                             ["schedules.id", $id]

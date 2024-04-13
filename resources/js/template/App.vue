@@ -110,12 +110,14 @@ import {mapState} from 'vuex';
             {text:'College', icon:'mdi-home', to:'college'},
             {text:'Department', icon:'mdi-home', to:'department'},
             {text: 'Subjects', icon: 'mdi-account', to : 'subjects'},
+            {text: 'Events', icon: 'mdi-account', to : 'events'},
          ],
 
          scheduleItems: [
             {text:'Schedule', icon:'mdi-home', to:'schedule'},
          ],
          csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+         currentRole: null,
 
       }),
 
@@ -125,5 +127,9 @@ import {mapState} from 'vuex';
          ])
 
       },
+      mounted(){
+         this.currentRole = this.loggedInUser.role
+      }
+
    }
 </script>

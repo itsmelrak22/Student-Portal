@@ -22,6 +22,9 @@ import studentMutations from './student_store/studentMutations';
 import SUBJECT_STORE_STATES from './subject_store/state';
 import SUBJECT_STORE_MUTATIONS from './subject_store/mutations';
 import SUBJECT_STORE_ACTIONS from './subject_store/actions';
+import EVENT_STORE_STATES from './events_store/state';
+import EVENT_STORE_MUTATIONS from './events_store/mutations';
+import EVENT_STORE_ACTIONS from './events_store/actions';
 Vue.use(Vuex)
 const persistedData = new createPersistedState({
     key:'local_storage',
@@ -51,6 +54,7 @@ export default new Vuex.Store({
         ...collegeData,
         ...studentData,
         ...SUBJECT_STORE_STATES,
+        ...EVENT_STORE_STATES,
         ROLES: ['Registrar', 'Professor', 'Student'],
         professorData: [],
         registrarData: [],
@@ -151,6 +155,7 @@ export default new Vuex.Store({
         ...collegeActions,
         ...studentActions,
         ...SUBJECT_STORE_ACTIONS,
+        ...EVENT_STORE_ACTIONS,
 
         getProfessorData(context){
             context.commit('getProfessorData')
@@ -193,6 +198,7 @@ export default new Vuex.Store({
         ...collegeMutations,
         ...studentMutations,
         ...SUBJECT_STORE_MUTATIONS,
+        ...EVENT_STORE_MUTATIONS,
         
         getProfessorData(state){
             axios({

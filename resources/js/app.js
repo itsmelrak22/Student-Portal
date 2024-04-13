@@ -4,8 +4,10 @@ import Vuetify from 'vuetify'
 import Router from './router'
 import store from './store'
 import App from './template/App';
-import Login from './auth/Login';
+import GuestDashboard from './auth/Login2';
+// import Login from './auth/Login';
 Vue.use(Vuetify)
+
 
 new Vue({
     el: '#app',
@@ -14,7 +16,7 @@ new Vue({
     vuetify: new Vuetify(),
     components : {
         App,
-        Login,
+        GuestDashboard,
         // Landing
     }
     // render: h=>h(App)

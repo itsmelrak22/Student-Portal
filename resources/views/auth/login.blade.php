@@ -3,7 +3,7 @@
     <x-header></x-header>
 <body>
     <div id="app">
-        <Login></Login>
+        <guest-dashboard />
     </div>
     <x-scripts></x-scripts>
 </body>

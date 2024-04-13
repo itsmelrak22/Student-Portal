@@ -28,6 +28,8 @@
         "vuex": "^3.6.2",
         "vuex-persistedstate": "^4.1.0",
         "sass-loader": "12.1.0",
-        "sass": "^1.49.7"
+        "sass": "^1.49.7",
+        "core-js": "^3.8.2",
+        "deepai": "^1.0.17"
     }
 }

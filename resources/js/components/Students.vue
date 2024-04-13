@@ -33,7 +33,7 @@
                 <v-form id="Store" ref="Store" @submit.prevent="Store">
                     <v-card>
                         <v-card-title>
-                            <span>CREATE PROFESSOR ENTRY</span>
+                            <span>CREATE STUDENT ENTRY</span>
                         <v-spacer/>
                         <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                         </v-card-title>
@@ -94,18 +94,17 @@
                                     outlined
                                 ></v-text-field>
 
-                                <v-autocomplete
+                                <v-text-field
                                     dense 
                                     name="role" 
                                     label="ROLE" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="ROLES"
                                     chips
                                     small-chips
                                     value="Student"
                                     readonly
-                                ></v-autocomplete>
+                                ></v-text-field>
                             </v-col>
                             
                         </v-card-text>
@@ -123,7 +122,7 @@
                 <v-form id="Update" ref="Update" @submit.prevent="Update">
                     <v-card>
                         <v-card-title>
-                            <span>UPDATE REGISTRAR ENTRY</span>
+                            <span>UPDATE STUDENT ENTRY</span>
                         <v-spacer/>
                         <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                         </v-card-title>
@@ -188,19 +187,17 @@
                                     outlined
                                 ></v-text-field>
 
-                                <v-autocomplete
-                                    v-model="tempData.role"
+                                <v-text-field
                                     dense 
                                     name="role" 
                                     label="ROLE" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="ROLES"
                                     chips
                                     small-chips
-                                    value="Professor"
+                                    value="Student"
                                     readonly
-                                ></v-autocomplete>
+                                ></v-text-field>
                             </v-col>
                             
                         </v-card-text>
@@ -214,7 +211,7 @@
         <v-row>
             <v-dialog width="600" v-model="viewDialog">
                 <v-card>
-                    <v-card-title>View</v-card-title>
+                    <v-card-title>View Student Subjects</v-card-title>
                     <v-simple-table>
                         <thead>
                             <tr>
@@ -225,10 +222,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
+                            <tr v-for="(item, index) in STUDENT_SCHEDULE_DATA.subjects" :key="index">
+                                <td>{{ item.schedule_code }} </td>
+                                <td> {{ item.schedule_name }} </td>
+                                <td>{{ item.prof_name }} </td>
+                                <td>{{ item.subject_name }} </td>
                             </tr>
                         </tbody>
                     </v-simple-table>
@@ -274,7 +272,8 @@ export default {
             'rules',
             'ROLES',
             "COLLEGES_DATA",
-            "DEPARTMENTS_DATA"
+            "DEPARTMENTS_DATA",
+            'STUDENT_SCHEDULE_DATA'
         ]),
         ...mapGetters([
             "STUDENT_USERS_DATA",
@@ -304,10 +303,12 @@ export default {
             "GET_USERS_DATA",
             "GET_COLLEGES_DATA",
             "GET_DEPARTMENTS_DATA",
+            'GET_STUDENT_SCHEDULE_DATA'
         ]),
 
-        viewData(id){
-            console.log(`id: ${id}`)
+        async viewData(id){
+            // console.log(`id: ${id}`)
+            await this.GET_STUDENT_SCHEDULE_DATA(id)
             this.viewDialog = true
         },
 

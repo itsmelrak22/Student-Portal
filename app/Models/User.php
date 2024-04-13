@@ -94,10 +94,13 @@ class User extends Authenticatable
                                 'schedules.name as schedule_name', 
                                 'schedules.sched_code AS schedule_code',
                                 'subjects.name AS subject_name',
-                                'subjects.subject_code'
+                                'subjects.subject_code',
+                                'users.name as prof_name',
+                                'users.id as prof_id'
                             )
                             ->leftJoin('schedules', 'schedules.id',  'student_schedules.schedule_id')
-                            ->leftJoin('subjects', 'subjects.id',  'schedules.subject_id');
+                            ->leftJoin('subjects', 'subjects.id',  'schedules.subject_id')
+                            ->leftJoin('users', 'users.id',  'schedules.professor_id');
 
     }
 

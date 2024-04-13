@@ -29,6 +29,7 @@ class UpdateUsersTableFields extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropUnique('users_username_unique');
             $table->dropColumn('username');
             $table->dropColumn('department_id');
             $table->dropColumn('role');

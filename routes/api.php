@@ -10,6 +10,8 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\StudentScheduleController;
+use App\Http\Controllers\EventController;
 use App\Models\User;
 
 /*
@@ -33,6 +35,7 @@ Route::get('/students', [StudentController::class, 'index']);
 Route::get('/subjects', [SubjectController::class, 'index']);
 Route::get('/colleges', [CollegeController::class, 'index']);
 Route::get('/departments', [DepartmentController::class, 'index']);
+Route::get('/events', [EventController::class, 'index']);
 
 Route::prefix('schedules')->group( function (){
     Route::get('/', [ScheduleController::class, 'index']);
@@ -92,4 +95,14 @@ Route::prefix('schedule')->group( function (){
     Route::post('/insert', [ScheduleController::class, 'insert']);
     Route::post('/update', [ScheduleController::class, 'update']);
     Route::post('/delete', [ScheduleController::class, 'delete']);
+});
+
+Route::prefix('student_schedule')->group( function (){
+    Route::post('/insert', [StudentScheduleController::class, 'insert']);
+});
+
+Route::prefix('events')->group( function (){
+    Route::post('/insert', [EventController::class, 'insert']);
+    Route::post('/update', [EventController::class, 'update']);
+    Route::post('/delete', [EventController::class, 'delete']);
 });

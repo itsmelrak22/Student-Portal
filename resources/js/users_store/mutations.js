@@ -5,6 +5,10 @@ const mutations = {
 
     SET_PROFESSOR_SCHEDULE_DATA(state, payload){
         state.PROFESSOR_SCHEDULE_DATA = payload
+    },
+
+    SET_STUDENT_SCHEDULE_DATA(state, payload){
+        state.STUDENT_SCHEDULE_DATA = payload
     }
 }
 

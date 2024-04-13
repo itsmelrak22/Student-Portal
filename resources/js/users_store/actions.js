@@ -17,6 +17,18 @@ const actions = {
             commit('SET_PROFESSOR_SCHEDULE_DATA', res.data)
         })
     },
+
+    GET_STUDENT_SCHEDULE_DATA({commit}, payload){
+        console.log(payload)
+        axios({
+            method: "GET",
+            url: `api/users/students/${payload}/schedules`,
+        }).then((res) =>{
+            commit('SET_STUDENT_SCHEDULE_DATA', res.data)
+        })
+    },
+
+    
 }
 
 export default actions;
