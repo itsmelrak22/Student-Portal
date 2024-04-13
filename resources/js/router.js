@@ -9,7 +9,7 @@ import Registrar from './components/Registrar';
 import Professor from './components/Professor';
 import Students from './components/Students';
 import Subjects from './components/Subjects';
-import Events from './components/events';
+import Events from './components/Events';
 
 import store from './store';
 
