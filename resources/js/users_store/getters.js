@@ -11,6 +11,9 @@ const getters = {
     STUDENT_USERS_DATA (state, getters) {
         return getters.ACTIVE_USERS.filter(user => user.role == "Student");
     },
+    ADVISERS_USERS_DATA (state, getters) {
+        return getters.ACTIVE_USERS.filter(user => user.role == "Adviser");
+    },
 }
 
 export default getters;

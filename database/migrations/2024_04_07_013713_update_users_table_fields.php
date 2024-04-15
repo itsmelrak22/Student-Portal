@@ -16,7 +16,7 @@ class UpdateUsersTableFields extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique()->after("name");
             $table->integer('department_id')->after("email")->default(0);
-            $table->enum('role', ['Admin', 'Registrar', 'Professor', 'Student'])->after("email")->nullable();
+            $table->enum('role', ['Admin', 'Registrar', 'Professor', 'Student', 'Adviser'])->after("email")->nullable();
             $table->softDeletes();
         });
     }

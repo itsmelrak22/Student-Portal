@@ -52,6 +52,7 @@ Route::prefix('users')->group( function (){
 
     Route::get('/professor/{id}', [UserController::class, 'professor_schedule']);
     Route::get('/students/{id}/schedules', [UserController::class, 'student_schedule']);
+    // Route::get('/adviser/{id}', [UserController::class, 'advisee']);
 
 });
 

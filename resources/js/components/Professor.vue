@@ -1,5 +1,8 @@
 <template>
     <v-container fluid>
+        <v-toolbar dense flat>
+            <h1>Professor</h1>
+        </v-toolbar>
         <v-btn @click="toggleInsert(true)" dark small color="primary"><v-icon>mdi-plus</v-icon></v-btn>
         <v-simple-table>
             <thead>

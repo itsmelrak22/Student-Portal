@@ -36,7 +36,7 @@
         </v-col>
       </v-row>
       <div class="svg-border-waves text-white">
-        <v-img src="assets/img/borderWaves.svg" />
+        <v-img src="./assets/img/borderWaves.svg" />
       </div>
     </v-parallax>
     <v-container fluid id="features" class="mt-2">
@@ -82,7 +82,7 @@
     </v-container>
     <v-dialog v-model="dialog" max-width="640px">
       <v-card>
-        <youtube
+        <youtube>
           :video-id="videoId"
           @ready="ready"
           @playing="playing"
@@ -90,7 +90,7 @@
       </v-card>
     </v-dialog>
     <div class="svg-border-waves">
-      <img src="assets/img/wave2.svg" />
+      <img src="./assets/img/wave2.svg" />
     </div>
   </section>
 </template>
@@ -103,17 +103,17 @@ export default {
       videoId: "i8IvvHJssWE",
       features: [
         {
-          img: require("assets/img/icon2.png"),
+          img: require("./assets/img/icon2.png"),
           title: "CVSU EVENTS",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         },
         {
-          img: require("assets/img/icon1.png"),
+          img: require("./assets/img/icon1.png"),
           title: "CVSU EVENTS",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         },
         {
-          img: require("assets/img/icon3.png"),
+          img: require("./assets/img/icon3.png"),
           title: "CVSU EVENTS",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         },

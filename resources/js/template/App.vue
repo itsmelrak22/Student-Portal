@@ -103,6 +103,7 @@ import {mapState} from 'vuex';
          userItems: [
             {text:'Registrar', icon:'mdi-home', to:'registrar'},
             {text:'Professor', icon:'mdi-hand-wave', to:'professor'},
+            {text:'Adviser', icon:'mdi-hand-wave', to:'adviser'},
             {text: 'Students', icon: 'mdi-account', to : 'students'},
          ],
 

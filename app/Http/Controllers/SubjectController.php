@@ -29,7 +29,7 @@ class SubjectController extends Controller
             $subject = new Subject;
             $subject->name = $request->name;
             $subject->subject_code = $request->subject_code;
-            $subject->department_id = $request->dept_id;
+            $subject->department_id = $request->department_id;
             $subject->save();
 
             DB::commit();

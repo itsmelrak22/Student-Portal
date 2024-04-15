@@ -28,6 +28,16 @@ const actions = {
         })
     },
 
+    // GET_ADVISER_SCHEDULE_DATA({commit}, payload){
+    //     console.log(payload)
+    //     axios({
+    //         method: "GET",
+    //         url: `api/users/adviser/${payload}`,
+    //     }).then((res) =>{
+    //         commit('SET_ADVISER_SCHEDULE_DATA', res.data)
+    //     })
+    // },
+
     
 }
 

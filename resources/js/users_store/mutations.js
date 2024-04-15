@@ -9,6 +9,10 @@ const mutations = {
 
     SET_STUDENT_SCHEDULE_DATA(state, payload){
         state.STUDENT_SCHEDULE_DATA = payload
+    },
+
+    SET_ADVISER_SCHEDULE_DATA(state, payload){
+        state.ADVISER_SCHEDULE_DATA = payload
     }
 }
 

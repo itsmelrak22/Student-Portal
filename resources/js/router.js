@@ -10,6 +10,7 @@ import Professor from './components/Professor';
 import Students from './components/Students';
 import Subjects from './components/Subjects';
 import Events from './components/Events';
+import Adviser from './components/Adviser';
 
 import store from './store';
 
@@ -63,6 +64,14 @@ export default new VueRouter({
             path: '/professor',
             name: 'professor',
             component: Professor,
+            beforeEnter: (to, from, next) => {
+                checkIfAdmin(to, from, next, ['Admin'])
+            }
+        },
+        {
+            path: '/adviser',
+            name: 'adviser',
+            component: Adviser,
             beforeEnter: (to, from, next) => {
                 checkIfAdmin(to, from, next, ['Admin'])
             }
