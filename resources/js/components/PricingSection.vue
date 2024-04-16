@@ -3,38 +3,17 @@
     <v-container fluid>
       <v-row align="center" justify="center">
         <v-col cols="10">
-          <v-card style="width: 100%">
-            <h1 class="text-center pt-6 font-weight-light display-2">Planos</h1>
+          <v-card style="width: 100%" color="transparent" elevation="0">
+            <h1 class="text-center pt-6 font-weight-light display-2">PHOTOS</h1>
             <v-divider class="my-6"></v-divider>
             <v-row class="text-center">
               <v-col class="col-12 col-sm-6 col-md-4">
                 <div class="flex-center">
                   <v-card-text>
-                    <div class="flex-center">
-                      <div class="circle1">
-                        <div class="circle2">
-                          <v-img src="./assets/img/paperplane.svg"></v-img>
-                        </div>
-                      </div>
+                    <div class="flex-center"  >
+                      <v-img src="https://cvsu.edu.ph/wp-content/uploads/2020/10/Bacoor.jpg" height="270px"></v-img>
                     </div>
-                    <div class="text--disabled text-uppercase text-h5 my-2">Básico</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Domínios personalizados</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Limite de 1000 acessos diários</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Outras características...</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase text-h4 mt-6 blue--text">R$ 20,00</div>
-                    <v-btn
-                        v-bind="size"
-                        rounded
-                        outlined
-                        color="blue"
-                        class="mt-6"
-                    >
-                      Comece Agora!
-                    </v-btn>
+                    Cavite State University Bacoor City Campus
                   </v-card-text>
                   <v-divider style="margin-right: -23px" vertical v-if="this.$vuetify.breakpoint.smAndUp"></v-divider>
                 </div>
@@ -44,30 +23,9 @@
                 <div class="flex-center">
                   <v-card-text>
                     <div class="flex-center">
-                      <div class="circle1">
-                        <div class="circle2">
-                          <v-img src="./assets/img/airplane.svg"/>
-                        </div>
-                      </div>
+                      <v-img src="https://cvsu.edu.ph/wp-content/uploads/2020/10/Bacoor-academic-bldg-1024x768.jpeg"  height="270px"></v-img>
                     </div>
-                    <div class="text--disabled text-uppercase text-h5 my-2">Padrão</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Domínios personalizados</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Limite de 10000 acessos diários</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Outras características...</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase text-h4 mt-6 blue--text">R$ 100,00</div>
-                    <v-btn
-                        v-bind="size"
-                        rounded
-                        outlined
-                        color="blue"
-                        class="mt-6"
-                    >
-                      Comece Agora!
-                    </v-btn>
+                    Academic Building
                   </v-card-text>
                   <v-divider style="margin-right: -23px" vertical v-if="this.$vuetify.breakpoint.mdAndUp"></v-divider>
                 </div>
@@ -79,30 +37,10 @@
                 <div class="flex-center">
                   <v-card-text>
                     <div class="flex-center">
-                      <div class="circle1">
-                        <div class="circle2">
-                          <v-img src="./assets/img/aeroplane.svg"/>
-                        </div>
-                      </div>
+                      <v-img src="https://cvsu.edu.ph/wp-content/uploads/2020/10/Bacoor-Main-bldg-1024x768.jpeg"  height="270px"/>
                     </div>
-                    <div class="text--disabled text-uppercase text-h5 my-2">Empresarial</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Domínios personalizados</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Acessos ilimitados</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase blue--text">Outras características...</div>
-                    <v-divider class="my-2"/>
-                    <div class="text-uppercase text-h4 mt-6 blue--text">R$ 500,00</div>
-                    <v-btn
-                        v-bind="size"
-                        rounded
-                        outlined
-                        color="blue"
-                        class="mt-6"
-                    >
-                      Comece Agora!
-                    </v-btn>
+         
+                    Main Building
                   </v-card-text>
                 </div>
               </v-col>

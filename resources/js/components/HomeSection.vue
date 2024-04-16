@@ -1,20 +1,14 @@
 <template>
   <section id="hero">
-    <v-parallax
+    <v-parallax 
      height="750"
     src="assets/img/campus.jpg"
   >
       <v-row align="center" justify="center" >
         <v-col cols="10">
           <v-row align="center" justify="center">
-            <v-col cols="12" md="6" xl="8">
-              <v-card>
-                
-                <v-card-text>
+            <v-col class="card-transparent-background" cols="12" md="6" xl="8">
                   <h1 class="display-2 font-weight-bold mb-4 text--black">CvSU Bacoor Student Portal</h1>
-                    <h1 class="font-weight-light">
-                      TEST TEST test test Test Test
-                    </h1>
                     <v-btn
                       rounded
                       outlined
@@ -26,8 +20,6 @@
                       Check out events
                       <v-icon class="ml-2">mdi-arrow-down</v-icon>
                     </v-btn>
-                </v-card-text>
-              </v-card>
               
              
             </v-col>
@@ -39,8 +31,8 @@
         <v-img src="./assets/img/borderWaves.svg" />
       </div>
     </v-parallax>
-    <v-container fluid id="features" class="mt-2">
-      <v-row align="center" justify="center">
+    <v-container fluid id="features" class="mt-2 ">
+      <v-row align="center" justify="center" class="waves-bg">
         <v-col cols="10">
           <v-row align="center" justify="space-around">
             <!-- <v-col cols="12" class="text-center">
@@ -70,9 +62,6 @@
                     :class="{ 'zoom-efect': hover }"
                   ></v-img>
                   <h1 class="font-weight-regular">{{ feature.title }}</h1>
-                  <h4 class="font-weight-regular subtitle-1">
-                    {{ feature.text }}
-                  </h4>
                 </v-card>
               </v-hover>
             </v-col>
@@ -104,18 +93,17 @@ export default {
       features: [
         {
           img: require("./assets/img/icon2.png"),
-          title: "CVSU EVENTS",
-          text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          title: "Courses Offered",
+
         },
         {
           img: require("./assets/img/icon1.png"),
-          title: "CVSU EVENTS",
-          text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          title: "Campus Officials",
+
         },
         {
           img: require("./assets/img/icon3.png"),
-          title: "CVSU EVENTS",
-          text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          title: "The History",
         },
       ],
     };
@@ -153,7 +141,7 @@ export default {
 
 <style lang="scss">
 .circle {
-  stroke: white;
+  stroke: rgba(103, 255, 131, 0.499);
   stroke-dasharray: 650;
   stroke-dashoffset: 650;
   -webkit-transition: all 0.5s ease-in-out;
@@ -216,6 +204,7 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0;
+  background-color:  #078a32bb;
   height: 3rem;
   width: 100%;
   overflow: hidden;
@@ -224,17 +213,23 @@ export default {
 #hero {
   z-index: 0;
 }
+.waves-bg{
+  /* background-color: #078a32bb; */
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.775), #078a32bb);
+
+}
 .svg-border-waves img {
   position: absolute;
   bottom: 0;
   left: 0;
+  opacity: 0.5 ;
   width: 100%;
   margin-bottom: -2px;
   z-index: -1;
 }
 
 .card {
-  min-height: 300px;
+  min-height: 200px;
   padding: 10px;
   transition: 0.5s ease-out;
 }

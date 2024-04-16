@@ -6,6 +6,8 @@
     <v-main class="pt-0">
       <home />
       <about />
+      <download/>
+      <pricing/>
       <login :dialog="loginDialog"  @toggleLoginDialog="toggleLoginDialog"/>
     </v-main>
     <v-scale-transition>

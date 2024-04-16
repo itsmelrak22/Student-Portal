@@ -1,2 +1,12 @@
 @import '~vuetify/dist/vuetify.min.css';
 @import '~@mdi/font/css/materialdesignicons.min.css';
+
+.color-white{
+    color:white!important;
+}
+.card-transparent-background{
+    background-color: rgba(0, 0, 0, 0.534);
+}
+.opacity-style{
+    opacity: 0.5;
+}

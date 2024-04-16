@@ -5,55 +5,29 @@
         <v-col cols="10">
           <v-row align="center" justify="center">
             <v-col cols="12" md="7">
-              <h1 class="font-weight-light display-2"></h1>
-              <h1 class="font-weight-light display-1 mb-3">
-                EVENTS
-              </h1>
-              <v-row>
-                <v-col cols="12" class="d-flex align-center">
-                  <v-img
-                    src="./assets/img/icon1.svg"
-                    max-width="60px"
-                    class="mr-4"
-                  />
+              <h1 class="font-weight-light display-2">Goals of the CvSU Bacoor City Campus</h1>
+                In support to the Vision and Mission of the University, CvSU – Bacoor City Campus shall:
+              <br>
+              <br>
                   <p class="text-justify">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    1. provide quality and affordable education which promotes intellectual growth, academic excellence and moral integrity;
                   </p>
-                </v-col>
-                <v-col cols="12" class="d-flex align-center">
-                  <v-img
-                    src="./assets/img/icon2.svg"
-                    max-width="60px"
-                    class="mr-4"
-                  />
-                  <p class="text-justify">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  <p>
+                    2. prepare students to meet the demands of the global market and respond to the society’s needs;
                   </p>
-                </v-col>
-                <v-col cols="12" class="d-flex align-center">
-                  <v-img
-                    src="./assets/img/icon3.svg"
-                    max-width="60px"
-                    class="mr-4"
-                  />
-                  <p class="text-justify">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  <p>
+                    3. develop innovative and scholarly researchers who have the ability to create new understanding in quest for quality research through inquiry, analysis and problem solving; and
                   </p>
-                </v-col>
-              </v-row>
+                  <p>
+                    4. produce globally competitive graduates with full competence in their fields of study.
+                  </p>
             </v-col>
             <v-col cols="12" md="5" class="d-none d-md-flex">
-              <v-img
-                src="./assets/img/ill1.svg"
+              <!-- <v-img
+                src="https://clipart-library.com/new_gallery/198-1988214_target-svg-aim-transparent-goals-icon-png.png"
                 class="d-block ml-auto mr-auto"
                 max-width="400px"
-              />
+              />   -->
             </v-col>
           </v-row>
         </v-col>
@@ -64,6 +38,6 @@
 
 <style scoped>
 #about {
-  /* background-color: #f4f7f5; */
+  background-color: #078a32bb;
 }
 </style>
