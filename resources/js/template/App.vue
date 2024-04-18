@@ -25,6 +25,7 @@
                   v-for="(item, i) in userItems"
                   :key="i + 'userItems'"
                   :to="item.to"
+                  v-if="currentRole == 'Admin' || checkPermisions()"
                >
                   <v-list-item-icon>
                      <v-icon v-text="item.icon"></v-icon>
@@ -125,12 +126,26 @@ import {mapState} from 'vuex';
 
       computed: {
          ...mapState([
-            'loggedInUser'
+            'loggedInUser',
+            'PERMISSIONS'
          ])
 
       },
+      methods: {
+         checkPermisions(to){
+            // console.log("this.loggedInUser.role", this.loggedInUser.role);
+            // console.log("this.PERMISSIONS", this.PERMISSIONS);
+            // console.log("this.PERMISSIONS[this.loggedInUser.role]", this.PERMISSIONS[this.loggedInUser.role]);
+
+            return this.PERMISSIONS[this.loggedInUser.role].includes(to);
+
+         }
+      },
       mounted(){
          this.currentRole = this.loggedInUser.role
+         console.log(this.currentRole);
+         console.log(this.PERMISSIONS);
+         console.log(this.PERMISSIONS[this.currentRole]);
       }
 
    }

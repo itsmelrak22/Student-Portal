@@ -54,27 +54,13 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.college_id"
-                                    dense 
-                                    name="college_id" 
-                                    label="COLLEGES" 
-                                    outlined
-                                    :rules="rules.required"
-                                    :items="COLLEGES"
-                                    chips
-                                    small-chips
-                                    item-value="id"
-                                    item-text="name"
-                                ></v-autocomplete>
-
-                                <v-autocomplete
                                     v-model="tempData.department_id"
                                     dense 
                                     name="department_id" 
                                     label="DEPARTMENT" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS"
+                                    :items="DEPARTMENTS_DATA"
                                     chips
                                     small-chips
                                     item-value="id"
@@ -144,27 +130,13 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.college_id"
-                                    dense 
-                                    name="college_id" 
-                                    label="COLLEGES" 
-                                    outlined
-                                    :rules="rules.required"
-                                    :items="COLLEGES"
-                                    chips
-                                    small-chips
-                                    item-value="id"
-                                    item-text="name"
-                                ></v-autocomplete>
-
-                                <v-autocomplete
                                     v-model="tempData.department_id"
                                     dense 
                                     name="department_id" 
                                     label="DEPARTMENT" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS"
+                                    :items="DEPARTMENTS_DATA"
                                     chips
                                     small-chips
                                     item-value="id"

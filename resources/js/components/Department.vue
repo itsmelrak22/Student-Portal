@@ -29,7 +29,7 @@
             <v-form id="Insert" ref="Insert">
                 <v-card>
                     <v-card-title>
-                        Insert
+                        Create department entry
                         <v-spacer/>
                         <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
@@ -40,7 +40,6 @@
                             label="DEPARTMENT CODE"
                             :rules="rules.required"
                             name="dept_code"
-                            readonly
                         ></v-text-field>
 
                         <v-text-field 
@@ -62,7 +61,7 @@
             <v-form id="Edit" ref="Edit">
                 <v-card>
                     <v-card-title>
-                        Edit
+                        Edit department entry
                         <v-spacer/>
                         <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
@@ -74,7 +73,6 @@
                             label="DEPARTMENT CODE"
                             :rules="rules.required"
                             name="dept_code"
-                            readonly
                         ></v-text-field>
 
                         <v-text-field 

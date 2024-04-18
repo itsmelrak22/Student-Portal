@@ -34,7 +34,6 @@
                         <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field dense name="college_code" label="College Code" outlined></v-text-field>
                         <v-text-field dense name="name" label="name" outlined></v-text-field>
                     </v-card-text>
                     <v-card-actions>
@@ -52,7 +51,6 @@
                         <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field v-model="tempCollegeCode" name="college_code" label="College Code" outlined></v-text-field>
                         <v-text-field v-model="tempName" name="name" label="name" outlined></v-text-field>
                         <input type="hidden" name="id" :value="editData.id">
                     </v-card-text>

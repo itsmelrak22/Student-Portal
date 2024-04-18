@@ -64,6 +64,12 @@ export default new Vuex.Store({
         ...SUBJECT_STORE_STATES,
         ...EVENT_STORE_STATES,
         ROLES: ['Registrar', 'Professor', 'Student', 'Adviser'],
+        PERMISSIONS: {
+            "Admin": [],
+            "Registrar": ['schedule', 'adviser', 'students', 'subjects', 'course'],
+            "Professor": ['schedule'],
+            "Student": []
+        },
         professorData: [],
         registrarData: [],
         loggedInUser : null,

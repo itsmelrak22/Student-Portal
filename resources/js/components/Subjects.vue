@@ -3,7 +3,7 @@
         <v-toolbar dense flat>
             <h1>Subjects</h1>
         </v-toolbar>
-        <v-btn @click="toggleInsert" dark small color="primary"><v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn @click="toggleInsert(true)" dark small color="primary"><v-icon>mdi-plus</v-icon></v-btn>
         <v-simple-table>
             <thead>
                 <tr>
@@ -31,25 +31,12 @@
                     <v-card-title>
                         Insert
                         <v-spacer/>
-                        <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
+                        <v-btn @click="toggleInsert(false)" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field dense name="subject_code" label="Subject Code" outlined></v-text-field>
-                        <v-text-field dense name="name" label="name" outlined></v-text-field>
-                        <v-autocomplete
-                            v-model="tempData.college_id"
-                            dense 
-                            name="college_id" 
-                            label="COLLEGES" 
-                            outlined
-                            :rules="rules.required"
-                            :items="COLLEGES"
-                            chips
-                            small-chips
-                            item-value="id"
-                            autocomplete="off"
-                            item-text="name"
-                        ></v-autocomplete>
+                        <v-text-field :rules="rules.required" dense name="subject_code" label="CODE" outlined></v-text-field>
+                        <v-text-field :rules="rules.required" dense name="name" label="NAME" outlined></v-text-field>
+                        
                         <v-autocomplete 
                             v-model="tempData.department_id"
                             dense 
@@ -57,7 +44,7 @@
                             label="DEPARTMENT" 
                             outlined
                             :rules="rules.required"
-                            :items="DEPARTMENTS"
+                            :items="DEPARTMENTS_DATA"
                             chips
                             small-chips
                             item-value="id"
@@ -77,34 +64,21 @@
                     <v-card-title>
                         Edit
                         <v-spacer/>
-                        <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
+                        <v-btn @click="toggleEdit(false)" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field v-model="tempData.subject_code" name="subject_code" label="Subject Code" outlined></v-text-field>
-                        <v-text-field v-model="tempData.name" name="name" label="Name" outlined></v-text-field>
-                        <v-autocomplete
-                            v-model="tempData.college_id"
-                            dense 
-                            name="college_id" 
-                            label="COLLEGES" 
-                            outlined
-                            :rules="rules.required"
-                            :items="COLLEGES"
-                            chips
-                            small-chips
-                            item-value="id"
-                            autocomplete="off"
-                            item-text="name"
-                        ></v-autocomplete>
+                        <v-text-field :rules="rules.required" v-model="tempData.subject_code" name="subject_code" label="CODE" outlined></v-text-field>
+                        <v-text-field :rules="rules.required" v-model="tempData.name" name="name" label="NAME" outlined></v-text-field>
                         <v-autocomplete
                             v-model="tempData.department_id" 
                             dense
                             name="dept_id" 
                             label="Department" 
                             outlined
-                            :items="DEPARTMENTS"
+                            :items="DEPARTMENTS_DATA"
                             item-text="name"
                             item-value="id"
+                            :rules="rules.required"
                         ></v-autocomplete>
                         <input type="hidden" name="id" :value="editData.id">
                     </v-card-text>
@@ -211,8 +185,21 @@ export default {
             }
         },
 
-        toggleInsert(){
-            this.insertDialog = true
+        toggleInsert(value){
+            if(value){
+                this.insertDialog = true
+            }else{
+                this.$refs.Insert.reset();
+                this.insertDialog = false
+            }
+        },
+        toggleEdit(value){
+            if(value){
+                this.editDialog = true
+            }else{
+                this.$refs.Edit.reset();
+                this.editDialog = false
+            }
         },
         toggleDelete(item){
             this.deleteData = item

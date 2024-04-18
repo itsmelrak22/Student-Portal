@@ -58,7 +58,7 @@ export default new VueRouter({
             name: 'schedule',
             component: Schedule,
             beforeEnter: (to, from, next) => {
-                checkIfAdmin(to, from, next, ['Admin'])
+                checkIfAdmin(to, from, next, ['Admin', 'Registrar', 'Professor'])
             }
         },
         {
@@ -74,7 +74,7 @@ export default new VueRouter({
             name: 'adviser',
             component: Adviser,
             beforeEnter: (to, from, next) => {
-                checkIfAdmin(to, from, next, ['Admin'])
+                checkIfAdmin(to, from, next, ['Admin', 'Registrar'])
             }
         },
 
@@ -83,7 +83,7 @@ export default new VueRouter({
             name: 'students',
             component : Students,
             beforeEnter: (to, from, next) => {
-                checkIfAdmin(to, from, next, ['Admin'])
+                checkIfAdmin(to, from, next, ['Admin', 'Registrar'])
             }
         },
 
@@ -92,7 +92,7 @@ export default new VueRouter({
             name: 'subjects',
             component : Subjects,
             beforeEnter: (to, from, next) => {
-                checkIfAdmin(to, from, next, ['Admin'])
+                checkIfAdmin(to, from, next, ['Admin', 'Registrar'])
             }
         },
         {
@@ -108,7 +108,7 @@ export default new VueRouter({
             name: 'course',
             component : Course,
             beforeEnter: (to, from, next) => {
-                checkIfAdmin(to, from, next, ['Admin'])
+                checkIfAdmin(to, from, next, ['Admin', 'Registrar'])
             }
         }
 

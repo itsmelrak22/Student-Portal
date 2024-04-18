@@ -13,6 +13,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentScheduleController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentCourseController;
 use App\Models\User;
 
 /*
@@ -48,6 +49,12 @@ Route::prefix('course')->group( function (){
     Route::post('/store', [CourseController::class, 'store']);
     Route::post('/update/{course}', [CourseController::class, 'update']);
     Route::post('/delete/{course}', [CourseController::class, 'delete']);
+});
+Route::prefix('student_course')->group( function (){
+    Route::get('/', [StudentCourseController::class, 'index']);
+    Route::post('/store', [StudentCourseController::class, 'store']);
+    Route::post('/update/{student_course}', [StudentCourseController::class, 'update']);
+    Route::post('/delete/{student_course}', [StudentCourseController::class, 'delete']);
 });
 
 

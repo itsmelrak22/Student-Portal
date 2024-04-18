@@ -3,7 +3,7 @@
         <v-toolbar dense flat>
             <h1>Schedule</h1>
         </v-toolbar>
-        <v-btn @click="toggleInsert" dark small color="primary"><v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn @click="toggleInsert(true)" dark small color="primary"><v-icon>mdi-plus</v-icon></v-btn>
         <v-simple-table>
             <thead>
                 <tr>
@@ -35,34 +35,29 @@
             <v-form id="Store" ref="Store" @submit.prevent="Store">
                 <v-card>
                     <v-card-title>
-                        Insert
+                        Create schedule entry
                         <v-spacer/>
-                        <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
+                        <v-btn @click="toggleInsert(false)" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field dense name="sched_code" label="Schedule Code" outlined></v-text-field>
-                        <v-autocomplete 
-                            v-model="scheduleData.college_id"
-                            dense
-                            name="college" 
-                            label="College" 
+                        <v-text-field 
+                            dense 
+                            name="sched_code" 
+                            label="Schedule Code" 
                             outlined
-                            :items="COLLEGES_DATA"
-                            item-text="name"
-                            item-value="id"
-                            @change="clearid('scheduleData',['department_id', 'subject_id', 'prof_id'])"
-                        ></v-autocomplete>
-
+                            :rules="rules.required"
+                        ></v-text-field>
                         <v-autocomplete 
                             v-model="scheduleData.department_id"
                             dense
                             name="department" 
                             label="Department" 
                             outlined
-                            :items="filteredDepartment"
+                            :items="DEPARTMENTS_DATA"
                             item-text="name"
                             item-value="id"
                             @change="clearid('scheduleData',[ 'subject_id', 'professor_id'])"
+                            :rules="rules.required"
                         ></v-autocomplete>
 
                         <v-autocomplete 
@@ -75,6 +70,7 @@
                             item-text="name"
                             item-value="id"
                             @change="clearid('scheduleData',[ 'professor_id'])"
+                            :rules="rules.required"
                         ></v-autocomplete>
                        
                         <v-autocomplete 
@@ -87,8 +83,15 @@
                             item-text="name"
                             item-value="id"
                             :disabled="!scheduleData.subject_id"
+                            :rules="rules.required"
                         ></v-autocomplete>
-                        <v-text-field dense name="name" label="Name" outlined></v-text-field>
+                        <v-text-field 
+                            dense 
+                            name="name" 
+                            label="Name" 
+                            outlined
+                            :rules="rules.required"
+                        ></v-text-field>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn type="submit" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
@@ -108,26 +111,16 @@
                     <v-card-text>
                         <v-text-field dense v-model="scheduleData.sched_code" name="sched_code" label="Schedule Code" outlined></v-text-field>
                         <v-autocomplete 
-                            v-model="scheduleData.college_id"
-                            dense
-                            name="college" 
-                            label="College" 
-                            outlined
-                            :items="COLLEGES_DATA"
-                            item-text="name"
-                            item-value="id"
-                            @change="clearid('scheduleData',['department_id', 'subject_id', 'prof_id'])"
-                        ></v-autocomplete>
-                        <v-autocomplete 
                             v-model="scheduleData.department_id"
                             dense
                             name="department" 
                             label="Department" 
                             outlined
-                            :items="filteredDepartment"
+                            :items="DEPARTMENTS_DATA"
                             item-text="name"
                             item-value="id"
                             @change="clearid('scheduleData',[ 'subject_id', 'professor_id'])"
+                            :rules="rules.required"
                         ></v-autocomplete>
 
                         <v-autocomplete 
@@ -140,6 +133,7 @@
                             item-text="name"
                             item-value="id"
                             @change="clearid('scheduleData',[ 'professor_id'])"
+                            :rules="rules.required"
                         ></v-autocomplete>
                        
                         <v-autocomplete 
@@ -152,6 +146,7 @@
                             item-text="name"
                             item-value="id"
                             :disabled="!scheduleData.subject_id"
+                            :rules="rules.required"
                         ></v-autocomplete>
                         <v-text-field v-model="scheduleData.name" dense name="name" label="Name" outlined></v-text-field>
                         <input type="hidden" name="id" :value="editData.id">
@@ -275,6 +270,7 @@ export default {
             'schedData',
             'COLLEGES_DATA',
             'SCHEDULE_STUDENTS',
+            'rules'
         ]),
 
         ...mapGetters([
@@ -436,8 +432,15 @@ export default {
                 this.editDialog = false
             }
         },
-        toggleInsert(){
-            this.insertDialog = true
+        async toggleInsert(value){
+            if(value){
+                this.insertDialog = true
+            }else{
+                await this.$refs.Store.reset();
+                this.insertDialog = false
+            }
+            
+
         },
         toggleDelete(item){
             this.deleteData = item
