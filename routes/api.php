@@ -12,6 +12,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentScheduleController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\CourseController;
 use App\Models\User;
 
 /*
@@ -40,6 +41,13 @@ Route::get('/events', [EventController::class, 'index']);
 Route::prefix('schedules')->group( function (){
     Route::get('/', [ScheduleController::class, 'index']);
     Route::get('/{id}/students', [ScheduleController::class, 'schedule_students']);
+});
+
+Route::prefix('course')->group( function (){
+    Route::get('/', [CourseController::class, 'index']);
+    Route::post('/store', [CourseController::class, 'store']);
+    Route::post('/update/{course}', [CourseController::class, 'update']);
+    Route::post('/delete/{course}', [CourseController::class, 'delete']);
 });
 
 

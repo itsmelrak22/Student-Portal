@@ -11,6 +11,7 @@ import Students from './components/Students';
 import Subjects from './components/Subjects';
 import Events from './components/Events';
 import Adviser from './components/Adviser';
+import Course from './components/Course';
 
 import store from './store';
 
@@ -98,6 +99,14 @@ export default new VueRouter({
             path: '/events',
             name: 'events',
             component : Events,
+            beforeEnter: (to, from, next) => {
+                checkIfAdmin(to, from, next, ['Admin'])
+            }
+        },
+        {
+            path: '/course',
+            name: 'course',
+            component : Course,
             beforeEnter: (to, from, next) => {
                 checkIfAdmin(to, from, next, ['Admin'])
             }

@@ -7,16 +7,16 @@
         <v-simple-table>
             <thead>
                 <tr>
-                    <th>Department</th>
-                    <th>College</th>
-                    <th>Date</th>
-                    <th>Actions</th>
+                    <th>DEPARTMENT CODE</th>
+                    <th>DEPARTMENT NAME</th>
+                    <th>DATE</th>
+                    <th>ACTIONS</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item, index) in DEPARTMENTS_DATA" :key="index">
+                    <td>{{item.dept_code}}</td>
                     <td>{{item.name}}</td>
-                    <td>{{item.college_name}}</td>
                     <td>{{ item.created_at }}</td>
                     <td>
                         <v-btn @click="Edit(item)" icon dark small color="success"><v-icon>mdi-pencil</v-icon></v-btn>
@@ -34,17 +34,23 @@
                         <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field dense name="dept_code" label="Department Code" outlined></v-text-field>
-                        <v-autocomplete 
+                        <v-text-field
                             dense
-                            name="college_id" 
-                            label="College" 
                             outlined
-                            :items="COLLEGES_DATA"
-                            item-text="name"
-                            item-value="id"
-                        ></v-autocomplete>
-                        <v-text-field dense name="name" label="name" outlined></v-text-field>
+                            label="DEPARTMENT CODE"
+                            :rules="rules.required"
+                            name="dept_code"
+                            readonly
+                        ></v-text-field>
+
+                        <v-text-field 
+                            dense 
+                            name="name" 
+                            label="NAME" 
+                            outlined
+                            :rules="rules.required"
+                        ></v-text-field>
+                       
                     </v-card-text>
                     <v-card-actions>
                         <v-btn @click="saveData" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
@@ -61,18 +67,24 @@
                         <v-btn @click="editDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field v-model="tempDepartmentCode" name="dept_code" label="Department Code" outlined></v-text-field>
-                        <v-autocomplete 
-                            v-model="tempCollegeId"
+                        <v-text-field
+                            v-model="tempDepartmentCode"
                             dense
-                            name="college_id" 
-                            label="College" 
                             outlined
-                            :items="COLLEGES_DATA"
-                            item-text="name"
-                            item-value="id"
-                        ></v-autocomplete>
-                        <v-text-field v-model="tempName" name="name" label="name" outlined></v-text-field>
+                            label="DEPARTMENT CODE"
+                            :rules="rules.required"
+                            name="dept_code"
+                            readonly
+                        ></v-text-field>
+
+                        <v-text-field 
+                            v-model="tempName"
+                            dense 
+                            name="name" 
+                            label="NAME" 
+                            outlined
+                            :rules="rules.required"
+                        ></v-text-field>
                         <input type="hidden" name="id" :value="editData.id">
                     </v-card-text>
                     <v-card-actions>
@@ -108,6 +120,7 @@ export default {
             editDialog: false,
             deleteDialog: false,
             tempDepartmentCode: null,
+            tempDepartmentName: null,
             tempName: null,
             tempCollegeId: null,
             editData: [],
@@ -186,7 +199,9 @@ export default {
     computed: {
         ...mapState([
             'DEPARTMENTS_DATA',
-            'COLLEGES_DATA'
+            'COLLEGES_DATA',
+            'rules',
+            'ROLES',
         ]),
       },
 

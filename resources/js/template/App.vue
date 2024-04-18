@@ -108,7 +108,8 @@ import {mapState} from 'vuex';
          ],
 
          items:[
-            {text:'College', icon:'mdi-home', to:'college'},
+            // {text:'College', icon:'mdi-home', to:'college'},
+            {text: 'Course', icon: 'mdi-account', to : 'course'},
             {text:'Department', icon:'mdi-home', to:'department'},
             {text: 'Subjects', icon: 'mdi-account', to : 'subjects'},
             {text: 'Events', icon: 'mdi-account', to : 'events'},

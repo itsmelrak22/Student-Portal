@@ -57,7 +57,7 @@ class User extends Authenticatable
         $user->name = $data["name"];
         $user->email = $data["email"];
         $user->username = $data["username"];
-        $user->password = bcrypt($data["0000"]);
+        $user->password = bcrypt('password');
         $user->role = $role;
 
 

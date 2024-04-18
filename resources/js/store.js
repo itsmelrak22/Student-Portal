@@ -25,6 +25,13 @@ import SUBJECT_STORE_ACTIONS from './subject_store/actions';
 import EVENT_STORE_STATES from './events_store/state';
 import EVENT_STORE_MUTATIONS from './events_store/mutations';
 import EVENT_STORE_ACTIONS from './events_store/actions';
+
+
+
+import COURSES_STORE_STATES from './course_store/state';
+import COURSES_STORE_ACTIONS from './course_store/actions';
+import COURSES_STORE_MUTATIONS from './course_store/mutations';
+import COURSES_STORE_GETTERS from './course_store/getters';
 Vue.use(Vuex)
 const persistedData = new createPersistedState({
     key:'local_storage',
@@ -43,6 +50,7 @@ export default new Vuex.Store({
         * */
 
         ...USER_STORE_STATES,
+        ...COURSES_STORE_STATES,
 
         /* 
         * 
@@ -144,6 +152,7 @@ export default new Vuex.Store({
         * */
        
          ...USER_STORE_ACTIONS,
+         ...COURSES_STORE_ACTIONS,
 
          /* 
          * 
@@ -187,6 +196,7 @@ export default new Vuex.Store({
         * */
        
         ...USER_STORE_MUTATIONS,
+        ...COURSES_STORE_MUTATIONS,
 
         /* 
         * 
@@ -240,6 +250,7 @@ export default new Vuex.Store({
         * */
        
         ...USER_STORE_GETTERS,
+        ...COURSES_STORE_GETTERS,
 
         /* 
         * 
