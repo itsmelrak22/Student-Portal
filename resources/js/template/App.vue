@@ -4,59 +4,101 @@
         v-model="drawer"
         app
       >
-         <v-list dense>
-            <v-subheader>Schedules :</v-subheader>
-               <v-divider></v-divider>
-               <v-list-item
-                  v-for="(item, i) in scheduleItems"
-                  :key="i + 'scheduleItems'"
+      <template v-if="loggedInUser.role == 'Student' ">
+         <v-list dense >
+            <v-subheader  >Student Dashboard:</v-subheader>
+            <v-list-item
+                  v-for="(item, i) in studentView"
+                  :key="i + 'studentView'"
                   :to="item.to"
                >
-                  <v-list-item-icon>
-                     <v-icon v-text="item.icon"></v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                     <v-list-item-title v-text="item.text"></v-list-item-title>
-                  </v-list-item-content>
-               </v-list-item> 
-            <v-subheader>Users:</v-subheader>
-               <v-divider></v-divider>
-               <v-list-item
-                  v-for="(item, i) in userItems"
-                  :key="i + 'userItems'"
-                  :to="item.to"
-                  v-if="currentRole == 'Admin' || checkPermisions()"
-               >
-                  <v-list-item-icon>
+               <v-list-item-icon>
                      <v-icon v-text="item.icon"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                      <v-list-item-title v-text="item.text"></v-list-item-title>
                   </v-list-item-content>
                </v-list-item>
-               <v-subheader>Master Lists:</v-subheader>
-               <v-divider></v-divider>
-               <v-list-item
-                  v-for="(item, i) in items"
-                  :key="i + 'items'"
-                  :to="item.to"
-               >
-                  <v-list-item-icon>
-                     <v-icon v-text="item.icon"></v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                     <v-list-item-title v-text="item.text"></v-list-item-title>
-                  </v-list-item-content>
-               </v-list-item>
-               <v-divider></v-divider>
-              
-
          </v-list>
+      </template>
+      <template v-if="loggedInUser.role == 'Adviser' ">
+         <v-list dense >
+            <v-subheader  >Adviser Dashboard:</v-subheader>
+            <v-list-item
+                  v-for="(item, i) in adviserView"
+                  :key="i + 'adviserView'"
+                  :to="item.to"
+               >
+               <v-list-item-icon>
+                     <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                     <v-list-item-title v-text="item.text"></v-list-item-title>
+                  </v-list-item-content>
+               </v-list-item>
+         </v-list>
+      </template>
+      <template v-else>
+         <v-list dense>
+         <v-subheader >Schedules :</v-subheader>
+            <v-divider></v-divider>
+            <v-list-item
+               v-for="(item, i) in scheduleItems"
+               :key="i + 'scheduleItems'"
+               :to="item.to"
+               v-if=" loggedInUser.role == 'Admin' || checkPermisions(item.to)"
+            >
+               <v-list-item-icon>
+                  <v-icon v-text="item.icon"></v-icon>
+               </v-list-item-icon>
+               <v-list-item-content>
+                  <v-list-item-title v-text="item.text"></v-list-item-title>
+               </v-list-item-content>
+            </v-list-item> 
+         <v-subheader >Users:</v-subheader>
+            <v-divider></v-divider>
+            <v-list-item
+               v-for="(item, i) in userItems"
+               :key="i + 'userItems'"
+               :to="item.to"
+               v-if=" loggedInUser.role == 'Admin' ||  checkPermisions(item.to)"
+            >
+               <v-list-item-icon>
+                  <v-icon v-text="item.icon"></v-icon>
+               </v-list-item-icon>
+               <v-list-item-content>
+                  <v-list-item-title v-text="item.text"></v-list-item-title>
+               </v-list-item-content>
+            </v-list-item>
+
+      </v-list>
+
+      <v-list dense>
+         <v-subheader   >Master Lists:</v-subheader>
+            <v-divider></v-divider>
+            <v-list-item
+               v-for="(item, i) in items"
+               :key="i + 'items'"
+               :to="item.to"
+               v-if=" loggedInUser.role == 'Admin' ||  checkPermisions(item.to)"
+            >
+               <v-list-item-icon>
+                  <v-icon v-text="item.icon"></v-icon>
+               </v-list-item-icon>
+               <v-list-item-content>
+                  <v-list-item-title v-text="item.text"></v-list-item-title>
+               </v-list-item-content>
+            </v-list-item>
+            <v-divider></v-divider>
+      </v-list>
+      </template>
+
+
       </v-navigation-drawer>
 
       <v-app-bar app>
          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-         <v-toolbar-title>Student Portal System</v-toolbar-title>
+         <v-toolbar-title>Student Portal System - {{ loggedInUser.role }} Dashboard</v-toolbar-title>
          <v-spacer></v-spacer>
          <span class="overline">{{loggedInUser.email}}</span>
          <v-tooltip bottom>
@@ -119,6 +161,16 @@ import {mapState} from 'vuex';
          scheduleItems: [
             {text:'Schedule', icon:'mdi-home', to:'schedule'},
          ],
+         adviserView: [
+            {text:'My Advises', icon:'mdi-home', to:'my-advises'},
+         ],
+
+         studentView: [
+            {text:'My Enrolled Subjects', icon:'mdi-home', to:'my-enrolled-subjects'},
+            {text:'My Grades', icon:'mdi-home', to:'my-grades'},
+            {text:'My Schedules', icon:'mdi-home', to:'my-schedules'},
+            {text:'My Advising', icon:'mdi-home', to:'my-advising'},
+         ],
          csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
          currentRole: null,
 
@@ -136,16 +188,16 @@ import {mapState} from 'vuex';
             // console.log("this.loggedInUser.role", this.loggedInUser.role);
             // console.log("this.PERMISSIONS", this.PERMISSIONS);
             // console.log("this.PERMISSIONS[this.loggedInUser.role]", this.PERMISSIONS[this.loggedInUser.role]);
-
+            console.log('to', to)
+            console.log('this.loggedInUser.role', this.loggedInUser.role)
+            console.log('this.PERMISSIONS[this.loggedInUser.role]', this.PERMISSIONS[this.loggedInUser.role])
             return this.PERMISSIONS[this.loggedInUser.role].includes(to);
 
          }
       },
       mounted(){
          this.currentRole = this.loggedInUser.role
-         console.log(this.currentRole);
          console.log(this.PERMISSIONS);
-         console.log(this.PERMISSIONS[this.currentRole]);
       }
 
    }

@@ -67,8 +67,9 @@ export default new Vuex.Store({
         PERMISSIONS: {
             "Admin": [],
             "Registrar": ['schedule', 'adviser', 'students', 'subjects', 'course'],
+            "Adviser": [],
             "Professor": ['schedule'],
-            "Student": []
+            "Student": ['my-grades', 'my-enrolled-subjects', 'my-schedules', 'my-advising']
         },
         professorData: [],
         registrarData: [],

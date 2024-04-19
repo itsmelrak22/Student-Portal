@@ -61,7 +61,7 @@ class User extends Authenticatable
         $user->role = $role;
 
 
-        if($role == "Professor" || $role == "Student"){
+        if($role == "Professor" || $role == "Student" || $role == "Adviser" ){
             $user->department_id = $data['department_id'];
         }
 

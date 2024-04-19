@@ -36,7 +36,7 @@
                 <v-form id="Store" ref="Store" @submit.prevent="Store">
                     <v-card>
                         <v-card-title>
-                            <span>CREATE PROFESSOR ENTRY</span>
+                            <span>CREATE ADVISER ENTRY</span>
                         <v-spacer/>
                         <v-btn @click="toggleInsert(false)" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                         </v-card-title>
@@ -55,28 +55,13 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.college_id"
-                                    dense 
-                                    name="college_id" 
-                                    label="COLLEGES" 
-                                    outlined
-                                    :rules="rules.required"
-                                    :items="COLLEGES"
-                                    chips
-                                    small-chips
-                                    item-value="id"
-                                    autocomplete="off"
-                                    item-text="name"
-                                ></v-autocomplete>
-
-                                <v-autocomplete
                                     v-model="tempData.department_id"
                                     dense 
                                     name="department_id" 
                                     label="DEPARTMENT" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS"
+                                    :items="DEPARTMENTS_DATA"
                                     chips
                                     small-chips
                                     item-value="id"
@@ -132,7 +117,7 @@
                 <v-form id="Update" ref="Update" @submit.prevent="Update">
                     <v-card>
                         <v-card-title>
-                            <span>UPDATE PROFESSOR ENTRY</span>
+                            <span>UPDATE ADVISER ENTRY</span>
                         <v-spacer/>
                         <v-btn @click="toggleEdit(false)" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                         </v-card-title>
@@ -152,28 +137,13 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.college_id"
-                                    dense 
-                                    name="college_id" 
-                                    label="COLLEGES" 
-                                    outlined
-                                    :rules="rules.required"
-                                    :items="COLLEGES"
-                                    chips
-                                    small-chips
-                                    autocomplete="off"
-                                    item-value="id"
-                                    item-text="name"
-                                ></v-autocomplete>
-
-                                <v-autocomplete
                                     v-model="tempData.department_id"
                                     dense 
                                     name="department_id" 
                                     label="DEPARTMENT" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS"
+                                    :items="DEPARTMENTS_DATA"
                                     chips
                                     small-chips
                                     item-value="id"
@@ -325,6 +295,7 @@ export default {
 
         Edit(data){
             this.tempData = {...data};
+            console.log('this.tempData', this.tempData)
             this.tempData.currentEmail = data.email
             this.tempData.adviser_code = this.tempData.username.split('_')[1];
             this.editDialog = true

@@ -13,6 +13,14 @@ import Events from './components/Events';
 import Adviser from './components/Adviser';
 import Course from './components/Course';
 
+
+
+import MyGrades from './components/MyGrades';
+import MyEnrolledSubjects from './components/MyEnrolledSubjects';
+import MySchedules from './components/MySchedules';
+import MyAdvising from './components/MyAdvising';
+import MyAdvises from './components/MyAdvises';
+
 import store from './store';
 
 const checkIfAdmin = ( to, from, next, allowedRoles ) => {
@@ -109,6 +117,46 @@ export default new VueRouter({
             component : Course,
             beforeEnter: (to, from, next) => {
                 checkIfAdmin(to, from, next, ['Admin', 'Registrar'])
+            }
+        },
+        {
+            path: '/my-grades',
+            name: 'my-grades',
+            component : MyGrades,
+            beforeEnter: (to, from, next) => {
+                checkIfAdmin(to, from, next, ['Student'])
+            }
+        },
+        {
+            path: '/my-enrolled-subjects',
+            name: 'my-enrolled-subjects',
+            component : MyEnrolledSubjects,
+            beforeEnter: (to, from, next) => {
+                checkIfAdmin(to, from, next, ['Student'])
+            }
+        },
+        {
+            path: '/my-schedules',
+            name: 'my-schedules',
+            component : MySchedules,
+            beforeEnter: (to, from, next) => {
+                checkIfAdmin(to, from, next, ['Student'])
+            }
+        },
+        {
+            path: '/my-advising',
+            name: 'my-advising',
+            component : MyAdvising,
+            beforeEnter: (to, from, next) => {
+                checkIfAdmin(to, from, next, ['Student'])
+            }
+        },
+        {
+            path: '/my-advises',
+            name: 'my-advises',
+            component : MyAdvises,
+            beforeEnter: (to, from, next) => {
+                checkIfAdmin(to, from, next, ['Adviser'])
             }
         }
 
