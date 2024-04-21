@@ -38,12 +38,11 @@
                         <v-card-title>
                             <span>CREATE PROFESSOR ENTRY</span>
                         <v-spacer/>
-                        <v-btn @click="toggleInsert(false)" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
+                        <v-btn @click="insertDialog = false" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                         </v-card-title>
                         <v-card-text>
                             <v-col cols="12" >
                                 <v-text-field
-                                    autocomplete="off"
                                     dense
                                     outlined
                                     label="PROFESSOR CODE"
@@ -55,28 +54,13 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.college_id"
-                                    dense 
-                                    name="college_id" 
-                                    label="COLLEGES" 
-                                    outlined
-                                    :rules="rules.required"
-                                    :items="COLLEGES"
-                                    chips
-                                    small-chips
-                                    item-value="id"
-                                    autocomplete="off"
-                                    item-text="name"
-                                ></v-autocomplete>
-
-                                <v-autocomplete
                                     v-model="tempData.department_id"
                                     dense 
                                     name="department_id" 
                                     label="DEPARTMENT" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS"
+                                    :items="DEPARTMENTS_DATA"
                                     chips
                                     small-chips
                                     item-value="id"
@@ -152,28 +136,13 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.college_id"
-                                    dense 
-                                    name="college_id" 
-                                    label="COLLEGES" 
-                                    outlined
-                                    :rules="rules.required"
-                                    :items="COLLEGES"
-                                    chips
-                                    small-chips
-                                    autocomplete="off"
-                                    item-value="id"
-                                    item-text="name"
-                                ></v-autocomplete>
-
-                                <v-autocomplete
                                     v-model="tempData.department_id"
                                     dense 
                                     name="department_id" 
                                     label="DEPARTMENT" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS"
+                                    :items="DEPARTMENTS_DATA"
                                     chips
                                     small-chips
                                     item-value="id"

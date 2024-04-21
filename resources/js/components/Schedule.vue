@@ -82,7 +82,6 @@
                             :items="filteredProfessorData"
                             item-text="name"
                             item-value="id"
-                            :disabled="!scheduleData.subject_id"
                             :rules="rules.required"
                         ></v-autocomplete>
                         <v-text-field 

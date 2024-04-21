@@ -21,7 +21,7 @@
                     <td>{{item.username}}</td>
                     <td>{{ item.created_at }}</td>
                     <td>
-                        <!-- <v-btn @click="viewData(item.id)" icon dark small color="success"><v-icon>mdi-view-module</v-icon></v-btn> -->
+                        <v-btn @click="viewAdvisees(item.id)" icon dark small color="success"><v-icon>mdi-view-module</v-icon></v-btn>
                         <v-btn @click="Edit(item)" icon dark small color="success"><v-icon>mdi-pencil</v-icon></v-btn>
                         <v-btn @click="toggleDelete(item)" icon dark small color="error"><v-icon>mdi-delete</v-icon></v-btn>
                     </td>
@@ -196,8 +196,11 @@
                 </v-form>
             </v-dialog>
         </v-row>
-        <!-- <v-row>
-            <v-dialog width="600" v-model="viewDialog">
+
+
+
+        <v-row>
+            <v-dialog width="600" v-model="adviseeDialog">
                 <v-card>
                     <v-card-title>View Adviser Schedules</v-card-title>
                     <v-simple-table>
@@ -220,7 +223,10 @@
                     </v-simple-table>
                 </v-card>
             </v-dialog>
-        </v-row> -->
+        </v-row>
+
+
+
         <v-dialog width="300" v-model="deleteDialog" persistent>
                 <v-card>
                     <v-card-title >
@@ -248,6 +254,7 @@ export default {
             insertDialog: false,
             editDialog: false,
             deleteDialog: false,
+            adviseeDialog: false,
             tempName: null,
             editData: [],
             deleteData:[],
@@ -292,6 +299,9 @@ export default {
             // 'GET_ADVISER_SCHEDULE_DATA',
         ]),
 
+        viewAdvisees(adviser_id){
+            console.log('adviser_id', adviser_id)
+        },
 
         Edit(data){
             this.tempData = {...data};
