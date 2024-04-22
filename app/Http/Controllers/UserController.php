@@ -81,12 +81,17 @@ class UserController extends Controller
     //    if( $role == "Professor" || $role == "Student"  ){
         return User::select(
                     "users.*",
-                    "colleges.name as college_name",
+                    // "colleges.name as college_name",
                     "departments.name as department_name",
-                    "departments.college_id",
+                    // "departments.college_id",
+                    "student_courses.course_id",
+                    "student_courses.id as student_course_id",
+                    "courses.course_name",
                     )
                     ->leftJoin('departments', 'departments.id', 'users.department_id')
-                    ->leftJoin('colleges', 'colleges.id', 'departments.college_id')
+                    // ->leftJoin('colleges', 'colleges.id', 'departments.college_id')
+                    ->leftJoin('student_courses', 'student_courses.student_id', 'users.id')
+                    ->leftJoin('courses', 'student_courses.course_id', 'courses.id')
                     ->withTrashed()
                     ->get();
 

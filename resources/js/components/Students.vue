@@ -7,18 +7,20 @@
         <v-simple-table>
             <thead>
                 <tr>
+                    <th>Code</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Username</th>
+                    <th>Course</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item, index) in STUDENT_USERS_DATA" :key="index">
+                    <td>{{item.username}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.email}}</td>
-                    <td>{{item.username}}</td>
+                    <td>{{item.course_name}}</td>
                     <td>{{ item.created_at }}</td>
                     <td>
                         <v-btn @click="viewData(item.id)" icon dark small color="success"><v-icon>mdi-view-module</v-icon></v-btn>
@@ -54,17 +56,17 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.department_id"
+                                    v-model="tempData.course_id"
                                     dense 
-                                    name="department_id" 
-                                    label="DEPARTMENT" 
+                                    name="course_id" 
+                                    label="COURSE" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS_DATA"
+                                    :items="COURSES_DATA"
                                     chips
                                     small-chips
                                     item-value="id"
-                                    item-text="name"
+                                    item-text="course_name"
                                 ></v-autocomplete>
 
                                 <v-text-field 
@@ -117,6 +119,8 @@
                         </v-card-title>
                         <v-card-text>
                             <v-col cols="12" >
+                                <input type="hidden" name="id" :value="tempData.id">
+                                <input type="hidden" name="student_course_id" :value="tempData.student_course_id">
                                 <v-text-field
                                     v-model="tempData.student_code"
                                     dense
@@ -130,17 +134,17 @@
                                 ></v-text-field>
 
                                 <v-autocomplete
-                                    v-model="tempData.department_id"
+                                    v-model="tempData.course_id"
                                     dense 
-                                    name="department_id" 
-                                    label="DEPARTMENT" 
+                                    name="course_id" 
+                                    label="COURSE" 
                                     outlined
                                     :rules="rules.required"
-                                    :items="DEPARTMENTS_DATA"
+                                    :items="COURSES_DATA"
                                     chips
                                     small-chips
                                     item-value="id"
-                                    item-text="name"
+                                    item-text="course_name"
                                 ></v-autocomplete>
 
                                 <v-text-field 
@@ -246,9 +250,9 @@ export default {
             "USERS_DATA",
             'rules',
             'ROLES',
-            "COLLEGES_DATA",
             "DEPARTMENTS_DATA",
-            'STUDENT_SCHEDULE_DATA'
+            'STUDENT_SCHEDULE_DATA',
+            "COURSES_DATA"
         ]),
         ...mapGetters([
             "STUDENT_USERS_DATA",
@@ -276,9 +280,10 @@ export default {
     methods: {
         ...mapActions([
             "GET_USERS_DATA",
-            "GET_COLLEGES_DATA",
+            // "GET_COLLEGES_DATA",
             "GET_DEPARTMENTS_DATA",
-            'GET_STUDENT_SCHEDULE_DATA'
+            'GET_STUDENT_SCHEDULE_DATA',
+            'GET_COURSES_DATA',
         ]),
 
         async viewData(id){
@@ -375,8 +380,8 @@ export default {
 
       async mounted() {
         await this.GET_USERS_DATA("Student");
-        await this.GET_COLLEGES_DATA();
         await this.GET_DEPARTMENTS_DATA();
+        await this.GET_COURSES_DATA();
       },
 }
 </script>

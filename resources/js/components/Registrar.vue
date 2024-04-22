@@ -9,7 +9,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Username</th>
+                    <th>Code</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>

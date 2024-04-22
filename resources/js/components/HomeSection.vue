@@ -17,7 +17,7 @@
                       @click="$vuetify.goTo('#features')"
                       class="mt-5"
                     >
-                      Check out events
+                      Explore
                       <v-icon class="ml-2">mdi-arrow-down</v-icon>
                     </v-btn>
               

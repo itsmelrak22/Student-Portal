@@ -5,7 +5,7 @@
         <v-col cols="10">
           <v-row align="center" justify="center">
             <v-col sm="4" class="hidden-xs-only">
-              <v-img src="assets/img/cvsu-logo.png" class="d-block ml-auto mr-auto" max-width="350px" />
+              <v-img src="assets/img/cvsu-bacoor-logo.png" class="d-block ml-auto mr-auto" max-width="350px" />
             </v-col>
             <v-col cols="12" sm="8" class=" text-left card-transparent-background">
               <h1  class="font-weight-light color-white display-2 mb-2"> Courses Offered</h1>

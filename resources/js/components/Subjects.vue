@@ -128,7 +128,6 @@ export default {
         ...mapActions([
             'GET_SUBJECTS_DATA',
             'GET_DEPARTMENTS_DATA',
-            'GET_COLLEGES_DATA'
         ]),
 
         dataDelete(){
@@ -211,7 +210,6 @@ export default {
         ...mapState([
             'SUBJECTS_DATA',
             'DEPARTMENTS_DATA',
-            'COLLEGES_DATA',
             'rules',
         ]),
 
@@ -227,7 +225,6 @@ export default {
       mounted() {
         this.GET_SUBJECTS_DATA()
         this.GET_DEPARTMENTS_DATA()
-        this.GET_COLLEGES_DATA()
       },
 }
 </script>

@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\StudentCourse;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -62,10 +64,19 @@ class User extends Authenticatable
 
 
         if($role == "Professor" || $role == "Student" || $role == "Adviser" ){
-            $user->department_id = $data['department_id'];
+            $user->department_id = $data['department_id'] || 0;
         }
 
+
         $user->save();
+
+        if($role == "Student"){
+            $student_course = new StudentCourse;
+            $student_course->student_id = $user->id;
+            $student_course->course_id = $data["course_id"];
+            $student_course->save();
+        }
+
     }
     public static function updateUserEntry($data, $role, $user){
         $user->name = $data["name"];
@@ -73,11 +84,17 @@ class User extends Authenticatable
         $user->role = $role;
 
         
-        if($role == "Professor" || $role == "Student"){
-            $user->department_id = $data['department_id'];
+        if($role == "Professor" || $role == "Student" || $role == "Adviser" ){
+            $user->department_id = $data['department_id'] || 0;
         }
-        
+
         $user->save();
+
+        if($role == "Student"){
+            $student_course = StudentCourse::find($data->student_course_id);
+            $student_course->course_id = $data["course_id"];
+            $student_course->save();
+        }
     }
 
     public function schedules()

@@ -9,7 +9,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Username</th>
+                    <th>Code</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>
@@ -21,6 +21,7 @@
                     <td>{{item.username}}</td>
                     <td>{{ item.created_at }}</td>
                     <td>
+                        <v-btn @click="viewAdvisees(item.id)" icon dark small color="success"><v-icon>mdi-account-multiple-plus</v-icon></v-btn>
                         <v-btn @click="viewData(item.id)" icon dark small color="success"><v-icon>mdi-view-module</v-icon></v-btn>
                         <v-btn @click="Edit(item)" icon dark small color="success"><v-icon>mdi-pencil</v-icon></v-btn>
                         <v-btn @click="toggleDelete(item)" icon dark small color="error"><v-icon>mdi-delete</v-icon></v-btn>
@@ -220,6 +221,65 @@
                 </v-card>
             </v-dialog>
         </v-row>
+
+        <v-row>
+            <v-dialog width="600" v-model="adviseesDialog">
+                <v-card>
+                    <v-card-title> 
+                        Advisees
+                    </v-card-title>
+                    <template>
+                        <v-card>
+                            <v-card-title>
+                            <v-autocomplete
+                                dense 
+                                outlined
+                                :items="STUDENT_USERS_DATA"
+                                chips
+                                label="Assign Student Advisee"
+                                small-chips
+                                item-text="name"
+                                item-value="id"
+                            ></v-autocomplete>
+                            <v-spacer></v-spacer>
+                            <v-text-field
+                                v-model="search"
+                                append-icon="mdi-magnify"
+                                label="Search"
+                                single-line
+                                hide-details
+                                dense 
+                                outlined
+                            ></v-text-field>
+                            </v-card-title>
+                            <v-data-table
+                            :headers="headers"
+                            :items="items"
+                            :search="search"
+                            ></v-data-table>
+                        </v-card>
+                    </template>
+                    <v-simple-table>
+                        <thead>
+                            <tr>
+                                <th>Student Code</th>
+                                <th>Student Name</th>
+                                <th>Course</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in PROFESSOR_SCHEDULE_DATA.schedules" :key="index">
+                                <td>{{ item.sched_code }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ PROFESSOR_SCHEDULE_DATA.name }}</td>
+                                <td>{{ item.subject_name }}</td>
+                            </tr>
+                        </tbody>
+                    </v-simple-table>
+                </v-card>
+            </v-dialog>
+        </v-row>
+
         <v-dialog width="300" v-model="deleteDialog" persistent>
                 <v-card>
                     <v-card-title >
@@ -249,10 +309,23 @@ export default {
             insertDialog: false,
             editDialog: false,
             deleteDialog: false,
+            adviseesDialog: false,
             tempName: null,
             editData: [],
             deleteData:[],
-            tempData: {}
+            tempData: {},
+            search: '',
+            headers: [
+                {
+                    text: 'Student Code',
+                    align: 'student_code',
+                    sortable: false,
+                    value: 'name',
+                },
+                { text: 'Student Name', value: 'student_name' },
+                { text: 'Course', value: 'course' },
+            ],
+            items: [],
         }
     },
     computed: {
@@ -266,6 +339,7 @@ export default {
         ]),
         ...mapGetters([
             "PROFESSORS_USERS_DATA",
+            "STUDENT_USERS_DATA"
         ]),
 
         newCode(){ 
@@ -291,9 +365,20 @@ export default {
             "GET_COLLEGES_DATA",
             "GET_DEPARTMENTS_DATA",
             'GET_PROFESSOR_SCHEDULE_DATA',
+            'GET_USERS_DATA'
         ]),
 
         ...professorMethods,
+
+
+        viewAdvisees(professor_id){
+            console.log('professor_id', professor_id)
+            if(professor_id){
+                this.adviseesDialog = true
+            }else{
+                this.adviseesDialog = false
+            }
+        },
 
         Edit(data){
             this.tempData = {...data};
@@ -398,10 +483,11 @@ export default {
 
 
       async mounted() {
-        await this.GET_USERS_DATA("Professor");
-        await this.GET_COLLEGES_DATA();
+        await this.GET_USERS_DATA();
+        // await this.GET_COLLEGES_DATA();
         await this.GET_DEPARTMENTS_DATA();
         await this.GET_PROFESSOR_SCHEDULE_DATA();
+
       },
 }
 </script>

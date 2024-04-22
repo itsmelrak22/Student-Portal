@@ -14,20 +14,27 @@ class DepartmentSeeder extends Seeder
      */
     public function run()
     {
-        $count = 10;
 
-        for ($i=0; $i < $count ; $i++) { 
-
-            $college_id = $i + 1;
-
-            $data = Department::create([
-                "dept_code" => "TESTDEPARTMENT-$i",
-                "college_id" => $college_id,
-                "name" => "TEST DEPARTMENT $i",
-            ]);
-
+        Department::create([
+            "dept_code" => "001",
+            "name" => "Deparment of Computer Studies",
+        ]);
+        Department::create([
+            "dept_code" => "002",
+            "name" => "Department of Criminology",
+        ]);
+        Department::create([
+            "dept_code" => "003",
+            "name" => "Deparment of Business Management",
+        ]);
+        Department::create([
+            "dept_code" => "004",
+            "name" => "Department of Education",
+        ]);
+        Department::create([
+            "dept_code" => "005",
+            "name" => "Department of Hospitality Management",
+        ]);
             
-
-        }
     }
 }

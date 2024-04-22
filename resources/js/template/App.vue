@@ -144,17 +144,17 @@ import {mapState} from 'vuex';
       data: () => ({
          drawer: null,
          userItems: [
-            {text:'Registrar', icon:'mdi-home', to:'registrar'},
-            {text:'Professor', icon:'mdi-hand-wave', to:'professor'},
-            {text:'Adviser', icon:'mdi-hand-wave', to:'adviser'},
-            {text: 'Students', icon: 'mdi-account', to : 'students'},
+            {text:'Registrar', icon:'mdi-account-group', to:'registrar'},
+            {text:'Professor', icon:'mdi-account-tie', to:'professor'},
+            // {text:'Adviser', icon:'mdi-hand-wave', to:'adviser'},
+            {text: 'Students', icon: 'mdi-account-box-multiple', to : 'students'},
          ],
 
          items:[
             // {text:'College', icon:'mdi-home', to:'college'},
-            {text: 'Course', icon: 'mdi-account', to : 'course'},
-            {text:'Department', icon:'mdi-home', to:'department'},
-            {text: 'Subjects', icon: 'mdi-account', to : 'subjects'},
+            {text: 'Course', icon: 'mdi-book', to : 'course'},
+           // {text:'Department', icon:'mdi-home', to:'department'},
+            {text: 'Subjects', icon: 'mdi-book-open', to : 'subjects'},
             {text: 'Events', icon: 'mdi-account', to : 'events'},
          ],
 
