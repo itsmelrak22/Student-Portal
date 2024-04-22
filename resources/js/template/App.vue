@@ -40,7 +40,7 @@
       </template>
       <template v-else>
          <v-list dense>
-         <v-subheader >Schedules :</v-subheader>
+         <v-subheader v-show="loggedInUser.role != 'Student'">Schedules :</v-subheader>
             <v-divider></v-divider>
             <v-list-item
                v-for="(item, i) in scheduleItems"
@@ -55,7 +55,7 @@
                   <v-list-item-title v-text="item.text"></v-list-item-title>
                </v-list-item-content>
             </v-list-item> 
-         <v-subheader >Users:</v-subheader>
+            <v-subheader v-show="loggedInUser.role != 'Student'">Users:</v-subheader>
             <v-divider></v-divider>
             <v-list-item
                v-for="(item, i) in userItems"
@@ -74,7 +74,7 @@
       </v-list>
 
       <v-list dense>
-         <v-subheader   >Master Lists:</v-subheader>
+         <v-subheader v-show="loggedInUser.role != 'Student'">Master Lists:</v-subheader>
             <v-divider></v-divider>
             <v-list-item
                v-for="(item, i) in items"
