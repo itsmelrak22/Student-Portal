@@ -34,8 +34,21 @@
                         <v-btn @click="toggleInsert(false)" icon dark small color="success"><v-icon>mdi-close</v-icon></v-btn>
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field :rules="rules.required" dense name="subject_code" label="CODE" outlined></v-text-field>
-                        <v-text-field :rules="rules.required" dense name="name" label="NAME" outlined></v-text-field>
+                        <v-text-field 
+                            :rules="rules.required" 
+                            dense 
+                            name="subject_code" 
+                            label="CODE" 
+                            outlined
+                        ></v-text-field>
+
+                        <v-text-field 
+                            :rules="rules.required" 
+                            dense 
+                            name="name" 
+                            label="NAME" 
+                            outlined
+                        ></v-text-field>
                         
                         <v-autocomplete 
                             v-model="tempData.department_id"
@@ -51,6 +64,8 @@
                             autocomplete="off"
                             item-text="name"
                         ></v-autocomplete>
+
+                        
                     </v-card-text>
                     <v-card-actions>
                         <v-btn @click="saveData" block dark small color="success"><v-icon>mdi-content-save-outline</v-icon>Save</v-btn>
